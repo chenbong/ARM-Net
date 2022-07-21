@@ -1,0 +1,525 @@
+22-07-15 22:47:10.670 - INFO:   name: US_CARN
+  distortion: sr
+  scale: 4
+  gpu_ids: [0]
+  job_dir: exp
+  network_G:[
+    which_model_G: carn
+    in_nc: 3
+    out_nc: 3
+    nf: 64
+    scale: 4
+    group: 4
+    width_list: [0, 36, 52, 64]
+  ]
+  datasets:[
+    train:[
+      name: DIV2K
+      mode: LQGT
+      dataroot_GT: /media/DATA2/SR/DIV2K/TMP/DIV2K_scale_sub/GT
+      dataroot_LQ: /media/DATA2/SR/DIV2K/TMP/DIV2K_scale_sub/LR
+      use_shuffle: True
+      n_workers: 4
+      batch_size: 16
+      GT_size: 128
+      use_flip: True
+      use_rot: True
+      color: RGB
+      phase: train
+      scale: 4
+      data_type: img
+    ]
+    val_patch:[
+      name: DIV2K_valid_sub
+      mode: LQGT
+      dataroot_GT: /media/DATA2/SR/DIV2K/TMP/DIV2K_valid_HR_sub/GT
+      dataroot_LQ: /media/DATA2/SR/DIV2K/TMP/DIV2K_valid_HR_sub/LR
+      phase: val
+      scale: 4
+      data_type: img
+    ]
+    test_1:[
+      name: test2k
+      mode: LQGT
+      dataroot_GT: /media/DATA2/SR/Test2K4K8K/test2k/HR/X4
+      dataroot_LQ: /media/DATA2/SR/Test2K4K8K/test2k/LR/X4
+      phase: test
+      scale: 4
+      data_type: img
+    ]
+  ]
+  path:[
+    pretrain_model_G: ckpt/arm-carn.pth
+    resume_state: ckpt/arm-carn.state
+    job_dir: exp/220715-224710-US_CARN
+    models: exp/220715-224710-US_CARN/models
+    training_state: exp/220715-224710-US_CARN/training_state
+    log: exp/220715-224710-US_CARN
+    val_images: exp/220715-224710-US_CARN/val_images
+  ]
+  train:[
+    lr_G: 0.0002
+    lr_scheme: CosineAnnealingLR_Restart
+    beta1: 0.9
+    beta2: 0.99
+    niter: 2000000
+    warmup_iter: -1
+    T_period: [2000000]
+    restarts: [2000000]
+    restart_weights: [1]
+    eta_min: 1e-07
+    pixel_criterion: l1
+    lap_w: 0.0
+    manual_seed: 2000
+    val_freq: 3000000
+  ]
+  logger:[
+    print_freq: 10000
+    save_checkpoint_freq: 10000
+  ]
+  is_train: False
+  is_test: True
+  test_mode: image
+  patch_size: 32
+  step: 28
+  add_mask: False
+
+22-07-15 22:47:38.285 - INFO: Dataset [LQGTDataset - DIV2K] is created.
+22-07-15 22:47:38.404 - INFO: Number of train images: 1,594,077, iters: 99,630
+22-07-15 22:47:38.405 - INFO: Total epochs needed: 21 for iters 2,000,000
+22-07-15 22:47:38.855 - INFO: Dataset [LQGTDataset - DIV2K_valid_sub] is created.
+22-07-15 22:47:38.856 - INFO: Number of val images in [DIV2K_valid_sub]: 22194
+22-07-15 22:47:38.858 - INFO: Dataset [LQGTDataset - test2k] is created.
+22-07-15 22:47:38.858 - INFO: Number of test images in [test2k]: 100
+22-07-15 22:47:44.849 - INFO: Network G structure: US_CARN_M, with parameters: 294,171
+22-07-15 22:47:44.865 - INFO: US_CARN_M(
+  (sub_mean): MeanShift(3, 3, kernel_size=(1, 1), stride=(1, 1))
+  (add_mean): MeanShift(3, 3, kernel_size=(1, 1), stride=(1, 1))
+  (entry): USConv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (b1): Block(
+    (b1): EResidualBlock(
+      (body): Sequential(
+        (0): USConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (1): ReLU(inplace=True)
+        (2): USConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (3): ReLU(inplace=True)
+        (4): USConv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (c1): BasicBlock(
+      (0): USConv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (c2): BasicBlock(
+      (0): USConv2d(192, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (c3): BasicBlock(
+      (0): USConv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+  )
+  (b2): Block(
+    (b1): EResidualBlock(
+      (body): Sequential(
+        (0): USConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (1): ReLU(inplace=True)
+        (2): USConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (3): ReLU(inplace=True)
+        (4): USConv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (c1): BasicBlock(
+      (0): USConv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (c2): BasicBlock(
+      (0): USConv2d(192, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (c3): BasicBlock(
+      (0): USConv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+  )
+  (b3): Block(
+    (b1): EResidualBlock(
+      (body): Sequential(
+        (0): USConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (1): ReLU(inplace=True)
+        (2): USConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (3): ReLU(inplace=True)
+        (4): USConv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (c1): BasicBlock(
+      (0): USConv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (c2): BasicBlock(
+      (0): USConv2d(192, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (c3): BasicBlock(
+      (0): USConv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+  )
+  (c1): BasicBlock(
+    (0): USConv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+    (1): ReLU(inplace=True)
+  )
+  (c2): BasicBlock(
+    (0): USConv2d(192, 64, kernel_size=(1, 1), stride=(1, 1))
+    (1): ReLU(inplace=True)
+  )
+  (c3): BasicBlock(
+    (0): USConv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+    (1): ReLU(inplace=True)
+  )
+  (upsample): UpsampleBlock(
+    (up): _UpsampleBlock(
+      (body): Sequential(
+        (0): USConv2d(64, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (1): ReLU(inplace=True)
+        (2): PixelShuffle(upscale_factor=2)
+        (3): USConv2d(64, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (4): ReLU(inplace=True)
+        (5): PixelShuffle(upscale_factor=2)
+      )
+    )
+  )
+  (exit): USConv2d(64, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+)
+22-07-15 22:47:44.867 - WARNING: Params [sub_mean.weight] will not optimize.
+22-07-15 22:47:44.867 - WARNING: Params [sub_mean.bias] will not optimize.
+22-07-15 22:47:44.867 - WARNING: Params [add_mean.weight] will not optimize.
+22-07-15 22:47:44.868 - WARNING: Params [add_mean.bias] will not optimize.
+22-07-15 22:47:44.868 - INFO: Model [USSR_Model] is created.
+22-07-15 22:47:45.517 - INFO: --- cost_list:[0.0, 380215296.0, 771563520.0, 1154875392.0] ---
+22-07-15 22:47:45.622 - INFO: Loading state from: ckpt/arm-carn.state, epoch: 21, iter: 2000002.
+22-07-15 22:47:45.631 - INFO: Loading model.netG from [ckpt/arm-carn.pth] ...
+22-07-15 22:47:45.691 - INFO: 
+--- Test different eta:2240458260.48 = 1.94x1154875392.0 ---
+22-07-15 22:47:45.691 - INFO: 
+Testing [test2k]...
+22-07-15 22:47:49.458 - INFO: 1201 - PSNR: 31.9101dB  FLOPs: 797.71M  Percent: 69.07%
+22-07-15 22:47:54.290 - INFO: 1202 - PSNR: 24.0305dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:48:00.332 - INFO: 1203 - PSNR: 26.0755dB  FLOPs: 1014.82M  Percent: 87.87%
+22-07-15 22:48:04.106 - INFO: 1204 - PSNR: 26.8899dB  FLOPs: 620.26M  Percent: 53.71%
+22-07-15 22:48:09.027 - INFO: 1205 - PSNR: 27.5490dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:48:13.955 - INFO: 1206 - PSNR: 24.3236dB  FLOPs: 1118.25M  Percent: 96.83%
+22-07-15 22:48:19.101 - INFO: 1207 - PSNR: 25.1557dB  FLOPs: 910.52M  Percent: 78.84%
+22-07-15 22:48:23.733 - INFO: 1208 - PSNR: 25.1373dB  FLOPs: 701.22M  Percent: 60.72%
+22-07-15 22:48:29.335 - INFO: 1209 - PSNR: 21.4987dB  FLOPs: 996.13M  Percent: 86.25%
+22-07-15 22:48:36.584 - INFO: 1210 - PSNR: 21.8530dB  FLOPs: 1099.88M  Percent: 95.24%
+22-07-15 22:48:42.418 - INFO: 1211 - PSNR: 27.7870dB  FLOPs: 662.48M  Percent: 57.36%
+22-07-15 22:48:47.595 - INFO: 1212 - PSNR: 23.7429dB  FLOPs: 1096.96M  Percent: 94.98%
+22-07-15 22:48:52.281 - INFO: 1213 - PSNR: 28.1934dB  FLOPs: 1041.35M  Percent: 90.17%
+22-07-15 22:48:57.715 - INFO: 1214 - PSNR: 24.5306dB  FLOPs: 730.33M  Percent: 63.24%
+22-07-15 22:49:03.290 - INFO: 1215 - PSNR: 23.3728dB  FLOPs: 1060.25M  Percent: 91.81%
+22-07-15 22:49:09.048 - INFO: 1216 - PSNR: 24.6419dB  FLOPs: 1151.83M  Percent: 99.74%
+22-07-15 22:49:12.661 - INFO: 1217 - PSNR: 27.8046dB  FLOPs: 776.04M  Percent: 67.20%
+22-07-15 22:49:19.992 - INFO: 1218 - PSNR: 23.4619dB  FLOPs: 1133.50M  Percent: 98.15%
+22-07-15 22:49:23.262 - INFO: 1219 - PSNR: 25.7522dB  FLOPs: 829.59M  Percent: 71.83%
+22-07-15 22:49:28.193 - INFO: 1220 - PSNR: 23.1276dB  FLOPs: 840.24M  Percent: 72.76%
+22-07-15 22:49:32.396 - INFO: 1221 - PSNR: 25.8016dB  FLOPs: 813.58M  Percent: 70.45%
+22-07-15 22:49:40.432 - INFO: 1222 - PSNR: 24.6030dB  FLOPs: 763.48M  Percent: 66.11%
+22-07-15 22:49:45.945 - INFO: 1223 - PSNR: 21.9783dB  FLOPs: 990.01M  Percent: 85.72%
+22-07-15 22:49:49.751 - INFO: 1224 - PSNR: 35.7609dB  FLOPs: 479.97M  Percent: 41.56%
+22-07-15 22:49:54.344 - INFO: 1225 - PSNR: 21.9972dB  FLOPs: 1062.07M  Percent: 91.96%
+22-07-15 22:49:59.164 - INFO: 1226 - PSNR: 30.9732dB  FLOPs: 394.16M  Percent: 34.13%
+22-07-15 22:50:05.539 - INFO: 1227 - PSNR: 27.1391dB  FLOPs: 1151.83M  Percent: 99.74%
+22-07-15 22:50:13.101 - INFO: 1228 - PSNR: 26.2065dB  FLOPs: 1127.47M  Percent: 97.63%
+22-07-15 22:50:18.904 - INFO: 1229 - PSNR: 27.0413dB  FLOPs: 941.18M  Percent: 81.50%
+22-07-15 22:50:25.250 - INFO: 1230 - PSNR: 26.2160dB  FLOPs: 1151.83M  Percent: 99.74%
+22-07-15 22:50:29.766 - INFO: 1231 - PSNR: 25.0399dB  FLOPs: 690.22M  Percent: 59.77%
+22-07-15 22:50:35.188 - INFO: 1232 - PSNR: 29.3814dB  FLOPs: 800.61M  Percent: 69.32%
+22-07-15 22:50:39.431 - INFO: 1233 - PSNR: 21.9014dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:50:46.142 - INFO: 1234 - PSNR: 22.7827dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:50:51.200 - INFO: 1235 - PSNR: 26.7589dB  FLOPs: 846.48M  Percent: 73.30%
+22-07-15 22:50:55.365 - INFO: 1236 - PSNR: 37.7316dB  FLOPs: 525.96M  Percent: 45.54%
+22-07-15 22:51:01.858 - INFO: 1237 - PSNR: 20.8458dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:51:10.315 - INFO: 1238 - PSNR: 27.3898dB  FLOPs: 775.84M  Percent: 67.18%
+22-07-15 22:51:15.169 - INFO: 1239 - PSNR: 25.1754dB  FLOPs: 705.84M  Percent: 61.12%
+22-07-15 22:51:21.393 - INFO: 1240 - PSNR: 26.4079dB  FLOPs: 1148.79M  Percent: 99.47%
+22-07-15 22:51:27.238 - INFO: 1241 - PSNR: 23.2264dB  FLOPs: 1090.87M  Percent: 94.46%
+22-07-15 22:51:33.746 - INFO: 1242 - PSNR: 28.0620dB  FLOPs: 999.73M  Percent: 86.57%
+22-07-15 22:51:38.992 - INFO: 1243 - PSNR: 24.5831dB  FLOPs: 1066.34M  Percent: 92.33%
+22-07-15 22:51:47.477 - INFO: 1244 - PSNR: 27.8951dB  FLOPs: 785.60M  Percent: 68.02%
+22-07-15 22:51:51.462 - INFO: 1245 - PSNR: 27.1621dB  FLOPs: 856.45M  Percent: 74.16%
+22-07-15 22:51:58.302 - INFO: 1246 - PSNR: 25.6077dB  FLOPs: 605.03M  Percent: 52.39%
+22-07-15 22:52:07.492 - INFO: 1247 - PSNR: 30.6018dB  FLOPs: 1136.62M  Percent: 98.42%
+22-07-15 22:52:13.742 - INFO: 1248 - PSNR: 22.5502dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:52:20.464 - INFO: 1249 - PSNR: 28.5837dB  FLOPs: 916.65M  Percent: 79.37%
+22-07-15 22:52:28.323 - INFO: 1250 - PSNR: 23.2839dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:52:29.885 - INFO: 1251 - PSNR: 23.6434dB  FLOPs: 1127.50M  Percent: 97.63%
+22-07-15 22:52:36.823 - INFO: 1252 - PSNR: 23.1492dB  FLOPs: 1099.91M  Percent: 95.24%
+22-07-15 22:52:46.388 - INFO: 1253 - PSNR: 26.8898dB  FLOPs: 1152.39M  Percent: 99.78%
+22-07-15 22:52:53.276 - INFO: 1254 - PSNR: 25.9212dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:52:59.254 - INFO: 1255 - PSNR: 26.4396dB  FLOPs: 876.90M  Percent: 75.93%
+22-07-15 22:53:04.418 - INFO: 1256 - PSNR: 25.8652dB  FLOPs: 752.47M  Percent: 65.16%
+22-07-15 22:53:10.145 - INFO: 1257 - PSNR: 24.7137dB  FLOPs: 876.56M  Percent: 75.90%
+22-07-15 22:53:18.605 - INFO: 1258 - PSNR: 26.9871dB  FLOPs: 1152.39M  Percent: 99.78%
+22-07-15 22:53:22.432 - INFO: 1259 - PSNR: 27.7580dB  FLOPs: 617.22M  Percent: 53.44%
+22-07-15 22:53:26.847 - INFO: 1260 - PSNR: 24.1857dB  FLOPs: 1008.34M  Percent: 87.31%
+22-07-15 22:53:34.029 - INFO: 1261 - PSNR: 23.9267dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:53:39.903 - INFO: 1262 - PSNR: 24.7875dB  FLOPs: 803.66M  Percent: 69.59%
+22-07-15 22:53:44.677 - INFO: 1263 - PSNR: 23.0481dB  FLOPs: 928.89M  Percent: 80.43%
+22-07-15 22:53:50.472 - INFO: 1264 - PSNR: 23.4904dB  FLOPs: 1014.58M  Percent: 87.85%
+22-07-15 22:53:56.046 - INFO: 1265 - PSNR: 23.8262dB  FLOPs: 1054.09M  Percent: 91.27%
+22-07-15 22:54:02.368 - INFO: 1266 - PSNR: 21.2943dB  FLOPs: 1148.79M  Percent: 99.47%
+22-07-15 22:54:07.478 - INFO: 1267 - PSNR: 25.0344dB  FLOPs: 1058.69M  Percent: 91.67%
+22-07-15 22:54:13.211 - INFO: 1268 - PSNR: 24.9833dB  FLOPs: 767.24M  Percent: 66.43%
+22-07-15 22:54:18.683 - INFO: 1269 - PSNR: 31.8856dB  FLOPs: 1109.16M  Percent: 96.04%
+22-07-15 22:54:25.147 - INFO: 1270 - PSNR: 34.4653dB  FLOPs: 1069.69M  Percent: 92.62%
+22-07-15 22:54:32.995 - INFO: 1271 - PSNR: 23.6460dB  FLOPs: 1144.92M  Percent: 99.14%
+22-07-15 22:54:38.696 - INFO: 1272 - PSNR: 22.6304dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:54:45.972 - INFO: 1273 - PSNR: 29.7127dB  FLOPs: 1124.45M  Percent: 97.37%
+22-07-15 22:54:52.827 - INFO: 1274 - PSNR: 28.6113dB  FLOPs: 1139.94M  Percent: 98.71%
+22-07-15 22:54:57.528 - INFO: 1275 - PSNR: 30.3093dB  FLOPs: 866.51M  Percent: 75.03%
+22-07-15 22:55:05.576 - INFO: 1276 - PSNR: 20.7625dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:55:12.394 - INFO: 1277 - PSNR: 24.9513dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:55:15.560 - INFO: 1278 - PSNR: 22.9521dB  FLOPs: 918.42M  Percent: 79.53%
+22-07-15 22:55:19.412 - INFO: 1279 - PSNR: 26.5295dB  FLOPs: 927.26M  Percent: 80.29%
+22-07-15 22:55:24.299 - INFO: 1280 - PSNR: 22.7294dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:55:30.991 - INFO: 1281 - PSNR: 23.0715dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:55:36.400 - INFO: 1282 - PSNR: 23.6487dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 22:55:43.348 - INFO: 1283 - PSNR: 31.5653dB  FLOPs: 831.43M  Percent: 71.99%
+22-07-15 22:55:47.859 - INFO: 1284 - PSNR: 26.6124dB  FLOPs: 766.99M  Percent: 66.41%
+22-07-15 22:55:53.224 - INFO: 1285 - PSNR: 25.8209dB  FLOPs: 684.42M  Percent: 59.26%
+22-07-15 22:55:58.828 - INFO: 1286 - PSNR: 27.8049dB  FLOPs: 938.10M  Percent: 81.23%
+22-07-15 22:56:03.907 - INFO: 1287 - PSNR: 25.6648dB  FLOPs: 962.56M  Percent: 83.35%
+22-07-15 22:56:09.766 - INFO: 1288 - PSNR: 21.9220dB  FLOPs: 858.57M  Percent: 74.34%
+22-07-15 22:56:16.626 - INFO: 1289 - PSNR: 23.8217dB  FLOPs: 742.47M  Percent: 64.29%
+22-07-15 22:56:22.302 - INFO: 1290 - PSNR: 29.8517dB  FLOPs: 608.41M  Percent: 52.68%
+22-07-15 22:56:28.725 - INFO: 1291 - PSNR: 30.2729dB  FLOPs: 1030.15M  Percent: 89.20%
+22-07-15 22:56:34.621 - INFO: 1292 - PSNR: 27.6207dB  FLOPs: 766.29M  Percent: 66.35%
+22-07-15 22:56:39.171 - INFO: 1293 - PSNR: 25.7373dB  FLOPs: 650.86M  Percent: 56.36%
+22-07-15 22:56:46.586 - INFO: 1294 - PSNR: 26.0466dB  FLOPs: 1121.29M  Percent: 97.09%
+22-07-15 22:56:50.237 - INFO: 1295 - PSNR: 29.7148dB  FLOPs: 652.11M  Percent: 56.47%
+22-07-15 22:56:55.365 - INFO: 1296 - PSNR: 25.1761dB  FLOPs: 1076.07M  Percent: 93.18%
+22-07-15 22:57:00.049 - INFO: 1297 - PSNR: 31.5574dB  FLOPs: 608.09M  Percent: 52.65%
+22-07-15 22:57:04.385 - INFO: 1298 - PSNR: 29.8833dB  FLOPs: 797.68M  Percent: 69.07%
+22-07-15 22:57:08.475 - INFO: 1299 - PSNR: 25.5323dB  FLOPs: 982.27M  Percent: 85.05%
+22-07-15 22:57:15.331 - INFO: 1300 - PSNR: 27.5721dB  FLOPs: 919.85M  Percent: 79.65%
+22-07-15 22:57:15.551 - INFO: # Validation # Class num: [1950, 0, 877, 9493]  all:12320
+22-07-15 22:57:15.552 - INFO: # FLOPs 9.4480e+08 Percent 8.1809e-01
+22-07-15 22:57:15.552 - INFO: ----Average PSNR results for test2k----	PSNR: 26.035528 dB
+
+22-07-15 22:57:15.552 - INFO: 
+--- Test different eta:1593728040.9599998 = 1.38x1154875392.0 ---
+22-07-15 22:57:15.552 - INFO: 
+Testing [test2k]...
+22-07-15 22:57:16.960 - INFO: 1201 - PSNR: 31.8845dB  FLOPs: 577.24M  Percent: 49.98%
+22-07-15 22:57:22.184 - INFO: 1202 - PSNR: 24.0281dB  FLOPs: 1139.66M  Percent: 98.68%
+22-07-15 22:57:28.525 - INFO: 1203 - PSNR: 26.0587dB  FLOPs: 860.63M  Percent: 74.52%
+22-07-15 22:57:33.145 - INFO: 1204 - PSNR: 26.8707dB  FLOPs: 528.74M  Percent: 45.78%
+22-07-15 22:57:39.520 - INFO: 1205 - PSNR: 27.5194dB  FLOPs: 1014.94M  Percent: 87.88%
+22-07-15 22:57:44.753 - INFO: 1206 - PSNR: 24.3060dB  FLOPs: 1008.54M  Percent: 87.33%
+22-07-15 22:57:50.700 - INFO: 1207 - PSNR: 25.1455dB  FLOPs: 785.48M  Percent: 68.01%
+22-07-15 22:57:55.230 - INFO: 1208 - PSNR: 25.1294dB  FLOPs: 588.06M  Percent: 50.92%
+22-07-15 22:58:01.435 - INFO: 1209 - PSNR: 21.4954dB  FLOPs: 925.53M  Percent: 80.14%
+22-07-15 22:58:05.547 - INFO: 1210 - PSNR: 21.8515dB  FLOPs: 1069.46M  Percent: 92.60%
+22-07-15 22:58:10.028 - INFO: 1211 - PSNR: 27.7460dB  FLOPs: 600.00M  Percent: 51.95%
+22-07-15 22:58:17.272 - INFO: 1212 - PSNR: 23.7387dB  FLOPs: 1014.18M  Percent: 87.82%
+22-07-15 22:58:21.449 - INFO: 1213 - PSNR: 28.1695dB  FLOPs: 757.84M  Percent: 65.62%
+22-07-15 22:58:25.954 - INFO: 1214 - PSNR: 24.5223dB  FLOPs: 635.38M  Percent: 55.02%
+22-07-15 22:58:31.291 - INFO: 1215 - PSNR: 23.3576dB  FLOPs: 968.54M  Percent: 83.87%
+22-07-15 22:58:38.389 - INFO: 1216 - PSNR: 24.6337dB  FLOPs: 1020.96M  Percent: 88.40%
+22-07-15 22:58:43.507 - INFO: 1217 - PSNR: 27.7848dB  FLOPs: 645.16M  Percent: 55.86%
+22-07-15 22:58:50.160 - INFO: 1218 - PSNR: 23.4541dB  FLOPs: 1072.59M  Percent: 92.88%
+22-07-15 22:58:54.373 - INFO: 1219 - PSNR: 25.7387dB  FLOPs: 692.22M  Percent: 59.94%
+22-07-15 22:58:59.692 - INFO: 1220 - PSNR: 23.1245dB  FLOPs: 818.69M  Percent: 70.89%
+22-07-15 22:59:03.897 - INFO: 1221 - PSNR: 25.7923dB  FLOPs: 662.73M  Percent: 57.39%
+22-07-15 22:59:11.591 - INFO: 1222 - PSNR: 24.5950dB  FLOPs: 624.43M  Percent: 54.07%
+22-07-15 22:59:17.792 - INFO: 1223 - PSNR: 21.9758dB  FLOPs: 922.51M  Percent: 79.88%
+22-07-15 22:59:22.868 - INFO: 1224 - PSNR: 35.6714dB  FLOPs: 320.31M  Percent: 27.74%
+22-07-15 22:59:29.024 - INFO: 1225 - PSNR: 21.9919dB  FLOPs: 983.36M  Percent: 85.15%
+22-07-15 22:59:32.054 - INFO: 1226 - PSNR: 30.9224dB  FLOPs: 327.04M  Percent: 28.32%
+22-07-15 22:59:38.160 - INFO: 1227 - PSNR: 27.1211dB  FLOPs: 1075.72M  Percent: 93.15%
+22-07-15 22:59:47.538 - INFO: 1228 - PSNR: 26.1651dB  FLOPs: 975.39M  Percent: 84.46%
+22-07-15 22:59:53.123 - INFO: 1229 - PSNR: 26.9530dB  FLOPs: 757.82M  Percent: 65.62%
+22-07-15 22:59:59.656 - INFO: 1230 - PSNR: 26.1988dB  FLOPs: 917.52M  Percent: 79.45%
+22-07-15 23:00:05.207 - INFO: 1231 - PSNR: 25.0309dB  FLOPs: 643.45M  Percent: 55.72%
+22-07-15 23:00:10.563 - INFO: 1232 - PSNR: 29.2785dB  FLOPs: 632.59M  Percent: 54.78%
+22-07-15 23:00:16.130 - INFO: 1233 - PSNR: 21.8977dB  FLOPs: 1076.65M  Percent: 93.23%
+22-07-15 23:00:20.706 - INFO: 1234 - PSNR: 22.7809dB  FLOPs: 1130.54M  Percent: 97.89%
+22-07-15 23:00:27.372 - INFO: 1235 - PSNR: 26.7478dB  FLOPs: 708.69M  Percent: 61.37%
+22-07-15 23:00:32.317 - INFO: 1236 - PSNR: 37.5675dB  FLOPs: 322.94M  Percent: 27.96%
+22-07-15 23:00:39.400 - INFO: 1237 - PSNR: 20.8458dB  FLOPs: 1154.88M  Percent: 100.00%
+22-07-15 23:00:46.139 - INFO: 1238 - PSNR: 27.3619dB  FLOPs: 718.96M  Percent: 62.25%
+22-07-15 23:00:50.580 - INFO: 1239 - PSNR: 25.1690dB  FLOPs: 653.74M  Percent: 56.61%
+22-07-15 23:00:57.311 - INFO: 1240 - PSNR: 26.3984dB  FLOPs: 1045.23M  Percent: 90.51%
+22-07-15 23:01:04.177 - INFO: 1241 - PSNR: 23.2253dB  FLOPs: 1023.18M  Percent: 88.60%
+22-07-15 23:01:09.773 - INFO: 1242 - PSNR: 28.0406dB  FLOPs: 725.72M  Percent: 62.84%
+22-07-15 23:01:15.396 - INFO: 1243 - PSNR: 24.5748dB  FLOPs: 938.25M  Percent: 81.24%
+22-07-15 23:01:21.802 - INFO: 1244 - PSNR: 27.8906dB  FLOPs: 595.01M  Percent: 51.52%
+22-07-15 23:01:25.229 - INFO: 1245 - PSNR: 27.1571dB  FLOPs: 765.92M  Percent: 66.32%
+22-07-15 23:01:29.851 - INFO: 1246 - PSNR: 25.5993dB  FLOPs: 541.60M  Percent: 46.90%
+22-07-15 23:01:36.562 - INFO: 1247 - PSNR: 30.5803dB  FLOPs: 975.01M  Percent: 84.43%
+22-07-15 23:01:42.408 - INFO: 1248 - PSNR: 22.5492dB  FLOPs: 1121.41M  Percent: 97.10%
+22-07-15 23:01:48.083 - INFO: 1249 - PSNR: 28.5588dB  FLOPs: 770.24M  Percent: 66.69%
+22-07-15 23:01:53.194 - INFO: 1250 - PSNR: 23.2840dB  FLOPs: 1148.79M  Percent: 99.47%
+22-07-15 23:01:54.801 - INFO: 1251 - PSNR: 23.6329dB  FLOPs: 962.65M  Percent: 83.35%
+22-07-15 23:01:59.058 - INFO: 1252 - PSNR: 23.1456dB  FLOPs: 1056.73M  Percent: 91.50%
+22-07-15 23:02:06.606 - INFO: 1253 - PSNR: 26.8711dB  FLOPs: 1027.88M  Percent: 89.00%
+22-07-15 23:02:12.091 - INFO: 1254 - PSNR: 25.9198dB  FLOPs: 1112.29M  Percent: 96.31%
+22-07-15 23:02:17.218 - INFO: 1255 - PSNR: 26.4293dB  FLOPs: 827.97M  Percent: 71.69%
+22-07-15 23:02:23.217 - INFO: 1256 - PSNR: 25.8482dB  FLOPs: 657.63M  Percent: 56.94%
+22-07-15 23:02:28.540 - INFO: 1257 - PSNR: 24.6948dB  FLOPs: 793.99M  Percent: 68.75%
+22-07-15 23:02:36.747 - INFO: 1258 - PSNR: 26.9532dB  FLOPs: 898.45M  Percent: 77.80%
+22-07-15 23:02:41.270 - INFO: 1259 - PSNR: 27.7451dB  FLOPs: 534.76M  Percent: 46.30%
+22-07-15 23:02:47.538 - INFO: 1260 - PSNR: 24.1817dB  FLOPs: 931.71M  Percent: 80.68%
+22-07-15 23:02:54.320 - INFO: 1261 - PSNR: 23.9243dB  FLOPs: 1097.07M  Percent: 95.00%
+22-07-15 23:02:59.228 - INFO: 1262 - PSNR: 24.7688dB  FLOPs: 696.54M  Percent: 60.31%
+22-07-15 23:03:05.905 - INFO: 1263 - PSNR: 23.0386dB  FLOPs: 812.78M  Percent: 70.38%
+22-07-15 23:03:12.244 - INFO: 1264 - PSNR: 23.4877dB  FLOPs: 912.98M  Percent: 79.05%
+22-07-15 23:03:18.540 - INFO: 1265 - PSNR: 23.8166dB  FLOPs: 977.85M  Percent: 84.67%
+22-07-15 23:03:24.792 - INFO: 1266 - PSNR: 21.2908dB  FLOPs: 1014.81M  Percent: 87.87%
+22-07-15 23:03:30.547 - INFO: 1267 - PSNR: 25.0256dB  FLOPs: 924.93M  Percent: 80.09%
+22-07-15 23:03:36.548 - INFO: 1268 - PSNR: 24.9740dB  FLOPs: 687.49M  Percent: 59.53%
+22-07-15 23:03:42.747 - INFO: 1269 - PSNR: 31.7614dB  FLOPs: 883.47M  Percent: 76.50%
+22-07-15 23:03:48.784 - INFO: 1270 - PSNR: 34.3313dB  FLOPs: 687.64M  Percent: 59.54%
+22-07-15 23:03:56.109 - INFO: 1271 - PSNR: 23.6391dB  FLOPs: 1032.70M  Percent: 89.42%
+22-07-15 23:04:02.615 - INFO: 1272 - PSNR: 22.6298dB  FLOPs: 1136.62M  Percent: 98.42%
+22-07-15 23:04:09.560 - INFO: 1273 - PSNR: 29.6841dB  FLOPs: 923.03M  Percent: 79.92%
+22-07-15 23:04:17.357 - INFO: 1274 - PSNR: 28.5709dB  FLOPs: 893.21M  Percent: 77.34%
+22-07-15 23:04:21.036 - INFO: 1275 - PSNR: 30.2891dB  FLOPs: 656.02M  Percent: 56.80%
+22-07-15 23:04:29.515 - INFO: 1276 - PSNR: 20.7613dB  FLOPs: 1142.43M  Percent: 98.92%
+22-07-15 23:04:35.690 - INFO: 1277 - PSNR: 24.9424dB  FLOPs: 1060.57M  Percent: 91.83%
+22-07-15 23:04:37.671 - INFO: 1278 - PSNR: 22.9497dB  FLOPs: 852.60M  Percent: 73.83%
+22-07-15 23:04:42.752 - INFO: 1279 - PSNR: 26.5267dB  FLOPs: 844.06M  Percent: 73.09%
+22-07-15 23:04:47.844 - INFO: 1280 - PSNR: 22.7291dB  FLOPs: 1144.61M  Percent: 99.11%
+22-07-15 23:04:54.024 - INFO: 1281 - PSNR: 23.0714dB  FLOPs: 1100.12M  Percent: 95.26%
+22-07-15 23:04:59.836 - INFO: 1282 - PSNR: 23.6473dB  FLOPs: 1135.32M  Percent: 98.31%
+22-07-15 23:05:03.757 - INFO: 1283 - PSNR: 31.5562dB  FLOPs: 631.71M  Percent: 54.70%
+22-07-15 23:05:08.061 - INFO: 1284 - PSNR: 26.5921dB  FLOPs: 602.08M  Percent: 52.13%
+22-07-15 23:05:13.114 - INFO: 1285 - PSNR: 25.8008dB  FLOPs: 617.24M  Percent: 53.45%
+22-07-15 23:05:19.044 - INFO: 1286 - PSNR: 27.7864dB  FLOPs: 788.33M  Percent: 68.26%
+22-07-15 23:05:24.281 - INFO: 1287 - PSNR: 25.6440dB  FLOPs: 811.18M  Percent: 70.24%
+22-07-15 23:05:28.680 - INFO: 1288 - PSNR: 21.9169dB  FLOPs: 815.73M  Percent: 70.63%
+22-07-15 23:05:35.023 - INFO: 1289 - PSNR: 23.8142dB  FLOPs: 695.87M  Percent: 60.26%
+22-07-15 23:05:40.471 - INFO: 1290 - PSNR: 29.8223dB  FLOPs: 451.22M  Percent: 39.07%
+22-07-15 23:05:45.970 - INFO: 1291 - PSNR: 30.2617dB  FLOPs: 738.53M  Percent: 63.95%
+22-07-15 23:05:50.384 - INFO: 1292 - PSNR: 27.5915dB  FLOPs: 604.45M  Percent: 52.34%
+22-07-15 23:05:53.393 - INFO: 1293 - PSNR: 25.7175dB  FLOPs: 586.50M  Percent: 50.78%
+22-07-15 23:05:59.551 - INFO: 1294 - PSNR: 26.0194dB  FLOPs: 1002.52M  Percent: 86.81%
+22-07-15 23:06:03.204 - INFO: 1295 - PSNR: 29.6445dB  FLOPs: 530.69M  Percent: 45.95%
+22-07-15 23:06:07.920 - INFO: 1296 - PSNR: 25.1702dB  FLOPs: 931.11M  Percent: 80.62%
+22-07-15 23:06:12.806 - INFO: 1297 - PSNR: 31.5160dB  FLOPs: 485.90M  Percent: 42.07%
+22-07-15 23:06:16.625 - INFO: 1298 - PSNR: 29.8436dB  FLOPs: 624.27M  Percent: 54.06%
+22-07-15 23:06:21.003 - INFO: 1299 - PSNR: 25.5247dB  FLOPs: 848.14M  Percent: 73.44%
+22-07-15 23:06:26.865 - INFO: 1300 - PSNR: 27.5481dB  FLOPs: 809.24M  Percent: 70.07%
+22-07-15 23:06:27.091 - INFO: # Validation # Class num: [1950, 877, 2753, 6740]  all:12320
+22-07-15 23:06:27.091 - INFO: # FLOPs 8.3128e+08 Percent 7.1980e-01
+22-07-15 23:06:27.091 - INFO: ----Average PSNR results for test2k----	PSNR: 26.015364 dB
+
+22-07-15 23:06:27.092 - INFO: 
+--- Test different eta:1501338009.6000001 = 1.3x1154875392.0 ---
+22-07-15 23:06:27.092 - INFO: 
+Testing [test2k]...
+22-07-15 23:06:28.942 - INFO: 1201 - PSNR: 31.7660dB  FLOPs: 507.93M  Percent: 43.98%
+22-07-15 23:06:35.104 - INFO: 1202 - PSNR: 23.9435dB  FLOPs: 878.72M  Percent: 76.09%
+22-07-15 23:06:40.709 - INFO: 1203 - PSNR: 25.9761dB  FLOPs: 603.59M  Percent: 52.26%
+22-07-15 23:06:45.709 - INFO: 1204 - PSNR: 26.8412dB  FLOPs: 393.74M  Percent: 34.09%
+22-07-15 23:06:52.896 - INFO: 1205 - PSNR: 27.4342dB  FLOPs: 692.77M  Percent: 59.99%
+22-07-15 23:06:58.738 - INFO: 1206 - PSNR: 24.2326dB  FLOPs: 815.04M  Percent: 70.57%
+22-07-15 23:07:03.986 - INFO: 1207 - PSNR: 25.0827dB  FLOPs: 579.35M  Percent: 50.17%
+22-07-15 23:07:08.541 - INFO: 1208 - PSNR: 25.0945dB  FLOPs: 449.66M  Percent: 38.94%
+22-07-15 23:07:14.426 - INFO: 1209 - PSNR: 21.4765dB  FLOPs: 704.39M  Percent: 60.99%
+22-07-15 23:07:21.401 - INFO: 1210 - PSNR: 21.8422dB  FLOPs: 866.83M  Percent: 75.06%
+22-07-15 23:07:27.532 - INFO: 1211 - PSNR: 27.6128dB  FLOPs: 491.82M  Percent: 42.59%
+22-07-15 23:07:34.193 - INFO: 1212 - PSNR: 23.6958dB  FLOPs: 860.73M  Percent: 74.53%
+22-07-15 23:07:38.076 - INFO: 1213 - PSNR: 28.1257dB  FLOPs: 563.89M  Percent: 48.83%
+22-07-15 23:07:44.199 - INFO: 1214 - PSNR: 24.5028dB  FLOPs: 497.15M  Percent: 43.05%
+22-07-15 23:07:50.394 - INFO: 1215 - PSNR: 23.2739dB  FLOPs: 790.31M  Percent: 68.43%
+22-07-15 23:07:57.926 - INFO: 1216 - PSNR: 24.5868dB  FLOPs: 710.76M  Percent: 61.54%
+22-07-15 23:08:02.314 - INFO: 1217 - PSNR: 27.7234dB  FLOPs: 524.93M  Percent: 45.45%
+22-07-15 23:08:07.405 - INFO: 1218 - PSNR: 23.3275dB  FLOPs: 872.94M  Percent: 75.59%
+22-07-15 23:08:11.904 - INFO: 1219 - PSNR: 25.6937dB  FLOPs: 479.82M  Percent: 41.55%
+22-07-15 23:08:17.132 - INFO: 1220 - PSNR: 23.0912dB  FLOPs: 655.80M  Percent: 56.79%
+22-07-15 23:08:21.393 - INFO: 1221 - PSNR: 25.7465dB  FLOPs: 536.26M  Percent: 46.43%
+22-07-15 23:08:28.090 - INFO: 1222 - PSNR: 24.5433dB  FLOPs: 539.06M  Percent: 46.68%
+22-07-15 23:08:32.216 - INFO: 1223 - PSNR: 21.9489dB  FLOPs: 732.24M  Percent: 63.40%
+22-07-15 23:08:36.354 - INFO: 1224 - PSNR: 35.5049dB  FLOPs: 255.41M  Percent: 22.12%
+22-07-15 23:08:41.742 - INFO: 1225 - PSNR: 21.9770dB  FLOPs: 810.30M  Percent: 70.16%
+22-07-15 23:08:45.579 - INFO: 1226 - PSNR: 30.8910dB  FLOPs: 280.90M  Percent: 24.32%
+22-07-15 23:08:52.268 - INFO: 1227 - PSNR: 26.9452dB  FLOPs: 707.15M  Percent: 61.23%
+22-07-15 23:09:00.963 - INFO: 1228 - PSNR: 25.9439dB  FLOPs: 724.31M  Percent: 62.72%
+22-07-15 23:09:06.661 - INFO: 1229 - PSNR: 26.8262dB  FLOPs: 585.74M  Percent: 50.72%
+22-07-15 23:09:12.234 - INFO: 1230 - PSNR: 26.1473dB  FLOPs: 671.15M  Percent: 58.11%
+22-07-15 23:09:18.683 - INFO: 1231 - PSNR: 24.9332dB  FLOPs: 469.35M  Percent: 40.64%
+22-07-15 23:09:24.934 - INFO: 1232 - PSNR: 29.0767dB  FLOPs: 494.23M  Percent: 42.79%
+22-07-15 23:09:28.727 - INFO: 1233 - PSNR: 21.8888dB  FLOPs: 883.11M  Percent: 76.47%
+22-07-15 23:09:35.285 - INFO: 1234 - PSNR: 22.7463dB  FLOPs: 952.75M  Percent: 82.50%
+22-07-15 23:09:40.890 - INFO: 1235 - PSNR: 26.7131dB  FLOPs: 536.54M  Percent: 46.46%
+22-07-15 23:09:45.848 - INFO: 1236 - PSNR: 37.4637dB  FLOPs: 273.37M  Percent: 23.67%
+22-07-15 23:09:51.712 - INFO: 1237 - PSNR: 20.8215dB  FLOPs: 958.20M  Percent: 82.97%
+22-07-15 23:09:57.644 - INFO: 1238 - PSNR: 27.2945dB  FLOPs: 600.64M  Percent: 52.01%
+22-07-15 23:10:02.527 - INFO: 1239 - PSNR: 25.1249dB  FLOPs: 583.00M  Percent: 50.48%
+22-07-15 23:10:09.841 - INFO: 1240 - PSNR: 26.3486dB  FLOPs: 787.27M  Percent: 68.17%
+22-07-15 23:10:15.352 - INFO: 1241 - PSNR: 23.2000dB  FLOPs: 808.06M  Percent: 69.97%
+22-07-15 23:10:20.631 - INFO: 1242 - PSNR: 28.0092dB  FLOPs: 560.23M  Percent: 48.51%
+22-07-15 23:10:27.454 - INFO: 1243 - PSNR: 24.5284dB  FLOPs: 738.60M  Percent: 63.95%
+22-07-15 23:10:33.275 - INFO: 1244 - PSNR: 27.8611dB  FLOPs: 475.21M  Percent: 41.15%
+22-07-15 23:10:37.694 - INFO: 1245 - PSNR: 27.0921dB  FLOPs: 611.90M  Percent: 52.98%
+22-07-15 23:10:43.250 - INFO: 1246 - PSNR: 25.5821dB  FLOPs: 466.87M  Percent: 40.43%
+22-07-15 23:10:48.866 - INFO: 1247 - PSNR: 30.4240dB  FLOPs: 689.09M  Percent: 59.67%
+22-07-15 23:10:54.802 - INFO: 1248 - PSNR: 22.5252dB  FLOPs: 918.91M  Percent: 79.57%
+22-07-15 23:11:01.487 - INFO: 1249 - PSNR: 28.4893dB  FLOPs: 543.21M  Percent: 47.04%
+22-07-15 23:11:08.436 - INFO: 1250 - PSNR: 23.2528dB  FLOPs: 805.01M  Percent: 69.71%
+22-07-15 23:11:09.641 - INFO: 1251 - PSNR: 23.6132dB  FLOPs: 838.29M  Percent: 72.59%
+22-07-15 23:11:15.565 - INFO: 1252 - PSNR: 23.1267dB  FLOPs: 886.73M  Percent: 76.78%
+22-07-15 23:11:23.712 - INFO: 1253 - PSNR: 26.7591dB  FLOPs: 721.51M  Percent: 62.47%
+22-07-15 23:11:31.161 - INFO: 1254 - PSNR: 25.8732dB  FLOPs: 805.52M  Percent: 69.75%
+22-07-15 23:11:37.309 - INFO: 1255 - PSNR: 26.2661dB  FLOPs: 573.11M  Percent: 49.63%
+22-07-15 23:11:43.705 - INFO: 1256 - PSNR: 25.8050dB  FLOPs: 562.11M  Percent: 48.67%
+22-07-15 23:11:48.758 - INFO: 1257 - PSNR: 24.6069dB  FLOPs: 597.12M  Percent: 51.70%
+22-07-15 23:11:56.402 - INFO: 1258 - PSNR: 26.8365dB  FLOPs: 646.42M  Percent: 55.97%
+22-07-15 23:12:01.854 - INFO: 1259 - PSNR: 27.6869dB  FLOPs: 424.23M  Percent: 36.73%
+22-07-15 23:12:06.917 - INFO: 1260 - PSNR: 24.1658dB  FLOPs: 781.05M  Percent: 67.63%
+22-07-15 23:12:12.047 - INFO: 1261 - PSNR: 23.8340dB  FLOPs: 814.64M  Percent: 70.54%
+22-07-15 23:12:17.846 - INFO: 1262 - PSNR: 24.7230dB  FLOPs: 555.20M  Percent: 48.07%
+22-07-15 23:12:23.176 - INFO: 1263 - PSNR: 22.9907dB  FLOPs: 628.47M  Percent: 54.42%
+22-07-15 23:12:28.531 - INFO: 1264 - PSNR: 23.4608dB  FLOPs: 814.55M  Percent: 70.53%
+22-07-15 23:12:33.842 - INFO: 1265 - PSNR: 23.7491dB  FLOPs: 744.54M  Percent: 64.47%
+22-07-15 23:12:39.874 - INFO: 1266 - PSNR: 21.2755dB  FLOPs: 839.81M  Percent: 72.72%
+22-07-15 23:12:45.750 - INFO: 1267 - PSNR: 24.9862dB  FLOPs: 762.36M  Percent: 66.01%
+22-07-15 23:12:51.309 - INFO: 1268 - PSNR: 24.9271dB  FLOPs: 529.77M  Percent: 45.87%
+22-07-15 23:12:56.321 - INFO: 1269 - PSNR: 31.3638dB  FLOPs: 603.83M  Percent: 52.29%
+22-07-15 23:13:02.368 - INFO: 1270 - PSNR: 34.2812dB  FLOPs: 575.89M  Percent: 49.87%
+22-07-15 23:13:09.645 - INFO: 1271 - PSNR: 23.5810dB  FLOPs: 803.70M  Percent: 69.59%
+22-07-15 23:13:16.703 - INFO: 1272 - PSNR: 22.5979dB  FLOPs: 912.19M  Percent: 78.99%
+22-07-15 23:13:22.125 - INFO: 1273 - PSNR: 29.5517dB  FLOPs: 711.47M  Percent: 61.61%
+22-07-15 23:13:30.024 - INFO: 1274 - PSNR: 28.5016dB  FLOPs: 664.41M  Percent: 57.53%
+22-07-15 23:13:35.649 - INFO: 1275 - PSNR: 30.2071dB  FLOPs: 469.34M  Percent: 40.64%
+22-07-15 23:13:43.433 - INFO: 1276 - PSNR: 20.7353dB  FLOPs: 976.48M  Percent: 84.55%
+22-07-15 23:13:50.764 - INFO: 1277 - PSNR: 24.9043dB  FLOPs: 720.15M  Percent: 62.36%
+22-07-15 23:13:53.655 - INFO: 1278 - PSNR: 22.9153dB  FLOPs: 664.35M  Percent: 57.53%
+22-07-15 23:14:02.927 - INFO: 1279 - PSNR: 26.3949dB  FLOPs: 666.57M  Percent: 57.72%
+22-07-15 23:14:12.097 - INFO: 1280 - PSNR: 22.7097dB  FLOPs: 1030.59M  Percent: 89.24%
+22-07-15 23:14:21.985 - INFO: 1281 - PSNR: 23.0616dB  FLOPs: 949.71M  Percent: 82.23%
+22-07-15 23:14:29.367 - INFO: 1282 - PSNR: 23.6026dB  FLOPs: 744.41M  Percent: 64.46%
+22-07-15 23:14:35.554 - INFO: 1283 - PSNR: 31.4837dB  FLOPs: 499.49M  Percent: 43.25%
+22-07-15 23:14:41.409 - INFO: 1284 - PSNR: 26.5552dB  FLOPs: 433.16M  Percent: 37.51%
+22-07-15 23:14:47.559 - INFO: 1285 - PSNR: 25.7179dB  FLOPs: 472.73M  Percent: 40.93%
+22-07-15 23:14:54.045 - INFO: 1286 - PSNR: 27.7279dB  FLOPs: 628.74M  Percent: 54.44%
+22-07-15 23:14:59.493 - INFO: 1287 - PSNR: 25.5471dB  FLOPs: 579.73M  Percent: 50.20%
+22-07-15 23:15:05.053 - INFO: 1288 - PSNR: 21.8964dB  FLOPs: 637.56M  Percent: 55.21%
+22-07-15 23:15:13.979 - INFO: 1289 - PSNR: 23.7713dB  FLOPs: 563.97M  Percent: 48.83%
+22-07-15 23:15:19.724 - INFO: 1290 - PSNR: 29.7085dB  FLOPs: 343.85M  Percent: 29.77%
+22-07-15 23:15:25.319 - INFO: 1291 - PSNR: 30.2303dB  FLOPs: 569.17M  Percent: 49.28%
+22-07-15 23:15:29.240 - INFO: 1292 - PSNR: 27.5070dB  FLOPs: 485.72M  Percent: 42.06%
+22-07-15 23:15:32.545 - INFO: 1293 - PSNR: 25.5909dB  FLOPs: 466.61M  Percent: 40.40%
+22-07-15 23:15:39.631 - INFO: 1294 - PSNR: 25.8913dB  FLOPs: 729.16M  Percent: 63.14%
+22-07-15 23:15:43.936 - INFO: 1295 - PSNR: 29.5564dB  FLOPs: 388.24M  Percent: 33.62%
+22-07-15 23:15:49.175 - INFO: 1296 - PSNR: 25.0959dB  FLOPs: 675.27M  Percent: 58.47%
+22-07-15 23:15:53.279 - INFO: 1297 - PSNR: 31.4500dB  FLOPs: 378.27M  Percent: 32.75%
+22-07-15 23:15:57.349 - INFO: 1298 - PSNR: 29.7242dB  FLOPs: 430.81M  Percent: 37.30%
+22-07-15 23:16:02.453 - INFO: 1299 - PSNR: 25.4828dB  FLOPs: 563.90M  Percent: 48.83%
+22-07-15 23:16:07.771 - INFO: 1300 - PSNR: 27.3976dB  FLOPs: 615.80M  Percent: 53.32%
+22-07-15 23:16:07.873 - INFO: # Validation # Class num: [1950, 3690, 3058, 3622]  all:12320
+22-07-15 23:16:07.874 - INFO: # FLOPs 6.4492e+08 Percent 5.5843e-01
+22-07-15 23:16:07.874 - INFO: ----Average PSNR results for test2k----	PSNR: 25.946007 dB
+

@@ -1,0 +1,518 @@
+22-02-22 23:59:18.730 - INFO: Dataset [LQGTDataset - DIV2K] is created.
+22-02-22 23:59:18.731 - INFO: Number of train images: 1,594,077, iters: 99,630
+22-02-22 23:59:18.731 - INFO: Total epochs needed: 21 for iters 2,000,000
+22-02-22 23:59:18.732 - INFO: Dataset [LQGTDataset - DIV2K_valid_10] is created.
+22-02-22 23:59:18.732 - INFO: Number of test images in [DIV2K_valid_10]: 10
+22-02-22 23:59:18.961 - INFO: Dataset [LQGTDataset - DIV2K_valid_sub] is created.
+22-02-22 23:59:18.961 - INFO: Number of val images in [DIV2K_valid_sub]: 22194
+22-02-22 23:59:18.963 - INFO: Dataset [LQGTDataset - test2k] is created.
+22-02-22 23:59:18.963 - INFO: Number of test images in [test2k]: 100
+22-02-22 23:59:21.295 - INFO: Network G structure: US_CARN_M, with parameters: 294,171
+22-02-22 23:59:21.295 - INFO: US_CARN_M(
+  (sub_mean): MeanShift(3, 3, kernel_size=(1, 1), stride=(1, 1))
+  (add_mean): MeanShift(3, 3, kernel_size=(1, 1), stride=(1, 1))
+  (entry): USConv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (b1): Block(
+    (b1): EResidualBlock(
+      (body): Sequential(
+        (0): USConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (1): ReLU(inplace=True)
+        (2): USConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (3): ReLU(inplace=True)
+        (4): USConv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (c1): BasicBlock(
+      (0): USConv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (c2): BasicBlock(
+      (0): USConv2d(192, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (c3): BasicBlock(
+      (0): USConv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+  )
+  (b2): Block(
+    (b1): EResidualBlock(
+      (body): Sequential(
+        (0): USConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (1): ReLU(inplace=True)
+        (2): USConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (3): ReLU(inplace=True)
+        (4): USConv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (c1): BasicBlock(
+      (0): USConv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (c2): BasicBlock(
+      (0): USConv2d(192, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (c3): BasicBlock(
+      (0): USConv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+  )
+  (b3): Block(
+    (b1): EResidualBlock(
+      (body): Sequential(
+        (0): USConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (1): ReLU(inplace=True)
+        (2): USConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (3): ReLU(inplace=True)
+        (4): USConv2d(64, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (c1): BasicBlock(
+      (0): USConv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (c2): BasicBlock(
+      (0): USConv2d(192, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+    (c3): BasicBlock(
+      (0): USConv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+      (1): ReLU(inplace=True)
+    )
+  )
+  (c1): BasicBlock(
+    (0): USConv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+    (1): ReLU(inplace=True)
+  )
+  (c2): BasicBlock(
+    (0): USConv2d(192, 64, kernel_size=(1, 1), stride=(1, 1))
+    (1): ReLU(inplace=True)
+  )
+  (c3): BasicBlock(
+    (0): USConv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+    (1): ReLU(inplace=True)
+  )
+  (upsample): UpsampleBlock(
+    (up): _UpsampleBlock(
+      (body): Sequential(
+        (0): USConv2d(64, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (1): ReLU(inplace=True)
+        (2): PixelShuffle(upscale_factor=2)
+        (3): USConv2d(64, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=4)
+        (4): ReLU(inplace=True)
+        (5): PixelShuffle(upscale_factor=2)
+      )
+    )
+  )
+  (exit): USConv2d(64, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+)
+22-02-22 23:59:21.296 - WARNING: Params [sub_mean.weight] will not optimize.
+22-02-22 23:59:21.296 - WARNING: Params [sub_mean.bias] will not optimize.
+22-02-22 23:59:21.297 - WARNING: Params [add_mean.weight] will not optimize.
+22-02-22 23:59:21.297 - WARNING: Params [add_mean.bias] will not optimize.
+22-02-22 23:59:21.298 - INFO: Model [USSR_Model] is created.
+22-02-22 23:59:22.647 - INFO: --- cost_list:[0.0, 380215296.0, 771563520.0, 1154875392.0] ---
+22-02-22 23:59:22.648 - INFO: Start training from epoch: 0, iter: 0
+22-02-23 00:06:19.714 - INFO: [epoch:  0, iter:  10,000, lr:(2.000e-04,)] l_pix: 3.5390e-02 
+22-02-23 00:06:19.818 - INFO: ======> 1w Iter Time: 417.17 (417.17)s, Will finish at: 02/23 23:09:56
+22-02-23 00:13:31.040 - INFO: [epoch:  0, iter:  20,000, lr:(2.000e-04,)] l_pix: 2.8998e-02 
+22-02-23 00:13:31.115 - INFO: ======> 1w Iter Time: 431.30 (424.23)s, Will finish at: 02/23 23:33:29
+22-02-23 00:21:55.814 - INFO: [epoch:  0, iter:  30,000, lr:(1.999e-04,)] l_pix: 3.9780e-02 
+22-02-23 00:21:55.897 - INFO: ======> 1w Iter Time: 504.78 (451.08)s, Will finish at: 02/24 01:02:59
+22-02-23 00:30:32.398 - INFO: [epoch:  0, iter:  40,000, lr:(1.998e-04,)] l_pix: 3.3037e-02 
+22-02-23 00:30:32.525 - INFO: ======> 1w Iter Time: 516.63 (467.47)s, Will finish at: 02/24 01:57:36
+22-02-23 00:39:59.322 - INFO: [epoch:  0, iter:  50,000, lr:(1.997e-04,)] l_pix: 2.1134e-02 
+22-02-23 00:39:59.926 - INFO: ======> 1w Iter Time: 567.40 (487.46)s, Will finish at: 02/24 03:04:13
+22-02-23 00:48:48.977 - INFO: [epoch:  0, iter:  60,000, lr:(1.996e-04,)] l_pix: 2.5573e-02 
+22-02-23 00:48:49.083 - INFO: ======> 1w Iter Time: 529.16 (494.41)s, Will finish at: 02/24 03:27:23
+22-02-23 00:57:17.473 - INFO: [epoch:  0, iter:  70,000, lr:(1.994e-04,)] l_pix: 2.8997e-02 
+22-02-23 00:57:17.562 - INFO: ======> 1w Iter Time: 508.48 (496.42)s, Will finish at: 02/24 03:34:05
+22-02-23 01:05:00.960 - INFO: [epoch:  0, iter:  80,000, lr:(1.992e-04,)] l_pix: 2.6068e-02 
+22-02-23 01:05:01.050 - INFO: ======> 1w Iter Time: 463.49 (492.30)s, Will finish at: 02/24 03:20:22
+22-02-23 01:12:17.460 - INFO: [epoch:  0, iter:  90,000, lr:(1.990e-04,)] l_pix: 2.2394e-02 
+22-02-23 01:12:17.542 - INFO: ======> 1w Iter Time: 436.49 (486.10)s, Will finish at: 02/24 02:59:42
+22-02-23 01:19:31.758 - INFO: [epoch:  1, iter: 100,000, lr:(1.988e-04,)] l_pix: 2.1067e-02 
+22-02-23 01:19:31.840 - INFO: ======> 1w Iter Time: 434.30 (480.92)s, Will finish at: 02/24 02:42:26
+22-02-23 01:26:27.455 - INFO: [epoch:  1, iter: 110,000, lr:(1.985e-04,)] l_pix: 3.1716e-02 
+22-02-23 01:26:27.541 - INFO: ======> 1w Iter Time: 415.70 (474.99)s, Will finish at: 02/24 02:22:40
+22-02-23 01:33:23.539 - INFO: [epoch:  1, iter: 120,000, lr:(1.982e-04,)] l_pix: 2.8162e-02 
+22-02-23 01:33:23.600 - INFO: ======> 1w Iter Time: 416.06 (470.08)s, Will finish at: 02/24 02:06:18
+22-02-23 01:40:17.562 - INFO: [epoch:  1, iter: 130,000, lr:(1.979e-04,)] l_pix: 2.5719e-02 
+22-02-23 01:40:17.633 - INFO: ======> 1w Iter Time: 414.03 (465.77)s, Will finish at: 02/24 01:51:56
+22-02-23 01:47:12.887 - INFO: [epoch:  1, iter: 140,000, lr:(1.976e-04,)] l_pix: 2.6117e-02 
+22-02-23 01:47:12.957 - INFO: ======> 1w Iter Time: 415.32 (462.16)s, Will finish at: 02/24 01:39:55
+22-02-23 01:54:16.043 - INFO: [epoch:  1, iter: 150,000, lr:(1.972e-04,)] l_pix: 2.9851e-02 
+22-02-23 01:54:16.134 - INFO: ======> 1w Iter Time: 423.18 (459.57)s, Will finish at: 02/24 01:31:15
+22-02-23 02:01:40.792 - INFO: [epoch:  1, iter: 160,000, lr:(1.969e-04,)] l_pix: 3.1982e-02 
+22-02-23 02:01:40.898 - INFO: ======> 1w Iter Time: 444.76 (458.64)s, Will finish at: 02/24 01:28:10
+22-02-23 02:09:07.034 - INFO: [epoch:  1, iter: 170,000, lr:(1.965e-04,)] l_pix: 2.7205e-02 
+22-02-23 02:09:07.135 - INFO: ======> 1w Iter Time: 446.24 (457.91)s, Will finish at: 02/24 01:25:44
+22-02-23 02:16:32.337 - INFO: [epoch:  1, iter: 180,000, lr:(1.960e-04,)] l_pix: 2.1667e-02 
+22-02-23 02:16:33.058 - INFO: ======> 1w Iter Time: 445.92 (457.24)s, Will finish at: 02/24 01:23:31
+22-02-23 02:23:48.417 - INFO: [epoch:  1, iter: 190,000, lr:(1.956e-04,)] l_pix: 2.5039e-02 
+22-02-23 02:23:48.499 - INFO: ======> 1w Iter Time: 435.44 (456.10)s, Will finish at: 02/24 01:19:42
+22-02-23 02:31:00.528 - INFO: [epoch:  2, iter: 200,000, lr:(1.951e-04,)] l_pix: 2.3142e-02 
+22-02-23 02:31:00.660 - INFO: ======> 1w Iter Time: 432.16 (454.90)s, Will finish at: 02/24 01:15:42
+22-02-23 02:38:16.685 - INFO: [epoch:  2, iter: 210,000, lr:(1.946e-04,)] l_pix: 1.8012e-02 
+22-02-23 02:38:16.773 - INFO: ======> 1w Iter Time: 436.11 (454.01)s, Will finish at: 02/24 01:12:43
+22-02-23 02:46:32.936 - INFO: [epoch:  2, iter: 220,000, lr:(1.941e-04,)] l_pix: 2.6781e-02 
+22-02-23 02:46:33.035 - INFO: ======> 1w Iter Time: 496.26 (455.93)s, Will finish at: 02/24 01:19:07
+22-02-23 02:55:35.064 - INFO: [epoch:  2, iter: 230,000, lr:(1.935e-04,)] l_pix: 3.5313e-02 
+22-02-23 02:55:35.185 - INFO: ======> 1w Iter Time: 542.15 (459.68)s, Will finish at: 02/24 01:31:37
+22-02-23 03:06:07.087 - INFO: [epoch:  2, iter: 240,000, lr:(1.930e-04,)] l_pix: 2.9544e-02 
+22-02-23 03:06:07.195 - INFO: ======> 1w Iter Time: 632.01 (466.86)s, Will finish at: 02/24 01:55:33
+22-02-23 03:16:45.777 - INFO: [epoch:  2, iter: 250,000, lr:(1.924e-04,)] l_pix: 2.1689e-02 
+22-02-23 03:16:45.912 - INFO: ======> 1w Iter Time: 638.72 (473.73)s, Will finish at: 02/24 02:18:28
+22-02-23 03:28:43.574 - INFO: [epoch:  2, iter: 260,000, lr:(1.918e-04,)] l_pix: 1.4378e-02 
+22-02-23 03:28:43.722 - INFO: ======> 1w Iter Time: 717.81 (483.12)s, Will finish at: 02/24 02:49:46
+22-02-23 03:40:38.061 - INFO: [epoch:  2, iter: 270,000, lr:(1.911e-04,)] l_pix: 3.2201e-02 
+22-02-23 03:40:38.219 - INFO: ======> 1w Iter Time: 714.50 (491.69)s, Will finish at: 02/24 03:18:20
+22-02-23 03:52:34.929 - INFO: [epoch:  2, iter: 280,000, lr:(1.905e-04,)] l_pix: 2.4508e-02 
+22-02-23 03:52:35.109 - INFO: ======> 1w Iter Time: 716.89 (499.73)s, Will finish at: 02/24 03:45:08
+22-02-23 04:04:30.457 - INFO: [epoch:  2, iter: 290,000, lr:(1.898e-04,)] l_pix: 2.2614e-02 
+22-02-23 04:04:30.622 - INFO: ======> 1w Iter Time: 715.51 (507.17)s, Will finish at: 02/24 04:09:56
+22-02-23 04:16:28.409 - INFO: [epoch:  3, iter: 300,000, lr:(1.891e-04,)] l_pix: 2.3263e-02 
+22-02-23 04:16:28.606 - INFO: ======> 1w Iter Time: 717.98 (514.20)s, Will finish at: 02/24 04:33:22
+22-02-23 04:28:25.738 - INFO: [epoch:  3, iter: 310,000, lr:(1.884e-04,)] l_pix: 2.6935e-02 
+22-02-23 04:28:25.894 - INFO: ======> 1w Iter Time: 717.29 (520.75)s, Will finish at: 02/24 04:55:12
+22-02-23 04:40:16.746 - INFO: [epoch:  3, iter: 320,000, lr:(1.876e-04,)] l_pix: 2.6990e-02 
+22-02-23 04:40:16.851 - INFO: ======> 1w Iter Time: 710.96 (526.69)s, Will finish at: 02/24 05:15:01
+22-02-23 04:52:16.180 - INFO: [epoch:  3, iter: 330,000, lr:(1.869e-04,)] l_pix: 2.5008e-02 
+22-02-23 04:52:16.326 - INFO: ======> 1w Iter Time: 719.47 (532.54)s, Will finish at: 02/24 05:34:29
+22-02-23 05:04:10.039 - INFO: [epoch:  3, iter: 340,000, lr:(1.861e-04,)] l_pix: 2.2004e-02 
+22-02-23 05:04:10.356 - INFO: ======> 1w Iter Time: 714.03 (537.87)s, Will finish at: 02/24 05:52:17
+22-02-23 05:16:05.078 - INFO: [epoch:  3, iter: 350,000, lr:(1.853e-04,)] l_pix: 2.4561e-02 
+22-02-23 05:16:05.208 - INFO: ======> 1w Iter Time: 714.85 (542.93)s, Will finish at: 02/24 06:09:08
+22-02-23 05:28:03.951 - INFO: [epoch:  3, iter: 360,000, lr:(1.844e-04,)] l_pix: 2.1062e-02 
+22-02-23 05:28:04.110 - INFO: ======> 1w Iter Time: 718.90 (547.82)s, Will finish at: 02/24 06:25:26
+22-02-23 05:39:58.532 - INFO: [epoch:  3, iter: 370,000, lr:(1.836e-04,)] l_pix: 2.4202e-02 
+22-02-23 05:39:58.658 - INFO: ======> 1w Iter Time: 714.55 (552.32)s, Will finish at: 02/24 06:40:27
+22-02-23 05:51:55.062 - INFO: [epoch:  3, iter: 380,000, lr:(1.827e-04,)] l_pix: 2.3979e-02 
+22-02-23 05:51:55.515 - INFO: ======> 1w Iter Time: 716.86 (556.65)s, Will finish at: 02/24 06:54:53
+22-02-23 06:03:44.842 - INFO: [epoch:  3, iter: 390,000, lr:(1.818e-04,)] l_pix: 2.7842e-02 
+22-02-23 06:03:44.959 - INFO: ======> 1w Iter Time: 709.44 (560.57)s, Will finish at: 02/24 07:07:57
+22-02-23 06:15:43.233 - INFO: [epoch:  4, iter: 400,000, lr:(1.809e-04,)] l_pix: 2.1812e-02 
+22-02-23 06:15:43.454 - INFO: ======> 1w Iter Time: 718.50 (564.52)s, Will finish at: 02/24 07:21:06
+22-02-23 06:27:37.418 - INFO: [epoch:  4, iter: 410,000, lr:(1.800e-04,)] l_pix: 2.4619e-02 
+22-02-23 06:27:37.674 - INFO: ======> 1w Iter Time: 714.22 (568.17)s, Will finish at: 02/24 07:33:16
+22-02-23 06:39:32.032 - INFO: [epoch:  4, iter: 420,000, lr:(1.790e-04,)] l_pix: 1.8631e-02 
+22-02-23 06:39:33.125 - INFO: ======> 1w Iter Time: 715.45 (571.68)s, Will finish at: 02/24 07:44:58
+22-02-23 06:51:29.891 - INFO: [epoch:  4, iter: 430,000, lr:(1.781e-04,)] l_pix: 2.5528e-02 
+22-02-23 06:51:30.030 - INFO: ======> 1w Iter Time: 716.91 (575.06)s, Will finish at: 02/24 07:56:13
+22-02-23 07:03:22.829 - INFO: [epoch:  4, iter: 440,000, lr:(1.771e-04,)] l_pix: 2.1274e-02 
+22-02-23 07:03:23.057 - INFO: ======> 1w Iter Time: 713.03 (578.19)s, Will finish at: 02/24 08:06:40
+22-02-23 07:15:23.071 - INFO: [epoch:  4, iter: 450,000, lr:(1.761e-04,)] l_pix: 3.2823e-02 
+22-02-23 07:15:23.240 - INFO: ======> 1w Iter Time: 720.18 (581.35)s, Will finish at: 02/24 08:17:11
+22-02-23 07:27:19.451 - INFO: [epoch:  4, iter: 460,000, lr:(1.750e-04,)] l_pix: 1.9034e-02 
+22-02-23 07:27:19.579 - INFO: ======> 1w Iter Time: 716.34 (584.28)s, Will finish at: 02/24 08:26:58
+22-02-23 07:39:14.461 - INFO: [epoch:  4, iter: 470,000, lr:(1.740e-04,)] l_pix: 2.3812e-02 
+22-02-23 07:39:14.671 - INFO: ======> 1w Iter Time: 715.09 (587.06)s, Will finish at: 02/24 08:36:15
+22-02-23 07:51:05.712 - INFO: [epoch:  4, iter: 480,000, lr:(1.729e-04,)] l_pix: 3.1225e-02 
+22-02-23 07:51:05.842 - INFO: ======> 1w Iter Time: 711.17 (589.65)s, Will finish at: 02/24 08:44:52
+22-02-23 08:03:00.298 - INFO: [epoch:  4, iter: 490,000, lr:(1.718e-04,)] l_pix: 2.6096e-02 
+22-02-23 08:03:00.445 - INFO: ======> 1w Iter Time: 714.60 (592.20)s, Will finish at: 02/24 08:53:22
+22-02-23 08:14:52.164 - INFO: [epoch:  5, iter: 500,000, lr:(1.707e-04,)] l_pix: 1.5629e-02 
+22-02-23 08:14:52.321 - INFO: ======> 1w Iter Time: 711.88 (594.59)s, Will finish at: 02/24 09:01:21
+22-02-23 08:26:45.021 - INFO: [epoch:  5, iter: 510,000, lr:(1.696e-04,)] l_pix: 2.7389e-02 
+22-02-23 08:26:45.160 - INFO: ======> 1w Iter Time: 712.84 (596.91)s, Will finish at: 02/24 09:09:04
+22-02-23 08:38:37.651 - INFO: [epoch:  5, iter: 520,000, lr:(1.685e-04,)] l_pix: 2.5217e-02 
+22-02-23 08:38:37.792 - INFO: ======> 1w Iter Time: 712.63 (599.14)s, Will finish at: 02/24 09:16:30
+22-02-23 08:50:42.122 - INFO: [epoch:  5, iter: 530,000, lr:(1.673e-04,)] l_pix: 2.0148e-02 
+22-02-23 08:50:42.272 - INFO: ======> 1w Iter Time: 724.48 (601.50)s, Will finish at: 02/24 09:24:23
+22-02-23 09:02:38.017 - INFO: [epoch:  5, iter: 540,000, lr:(1.661e-04,)] l_pix: 2.2619e-02 
+22-02-23 09:02:38.139 - INFO: ======> 1w Iter Time: 715.87 (603.62)s, Will finish at: 02/24 09:31:26
+22-02-23 09:14:31.079 - INFO: [epoch:  5, iter: 550,000, lr:(1.650e-04,)] l_pix: 1.8526e-02 
+22-02-23 09:14:31.277 - INFO: ======> 1w Iter Time: 713.14 (605.61)s, Will finish at: 02/24 09:38:04
+22-02-23 09:26:21.415 - INFO: [epoch:  5, iter: 560,000, lr:(1.638e-04,)] l_pix: 3.5253e-02 
+22-02-23 09:26:21.569 - INFO: ======> 1w Iter Time: 710.29 (607.48)s, Will finish at: 02/24 09:44:18
+22-02-23 09:38:09.723 - INFO: [epoch:  5, iter: 570,000, lr:(1.625e-04,)] l_pix: 2.2556e-02 
+22-02-23 09:38:09.903 - INFO: ======> 1w Iter Time: 708.33 (609.25)s, Will finish at: 02/24 09:50:12
+22-02-23 09:49:56.655 - INFO: [epoch:  5, iter: 580,000, lr:(1.613e-04,)] l_pix: 2.9385e-02 
+22-02-23 09:49:56.859 - INFO: ======> 1w Iter Time: 706.96 (610.93)s, Will finish at: 02/24 09:55:49
+22-02-23 10:01:42.818 - INFO: [epoch:  5, iter: 590,000, lr:(1.601e-04,)] l_pix: 2.2218e-02 
+22-02-23 10:01:42.922 - INFO: ======> 1w Iter Time: 706.06 (612.55)s, Will finish at: 02/24 10:01:11
+22-02-23 10:13:28.464 - INFO: [epoch:  6, iter: 600,000, lr:(1.588e-04,)] l_pix: 2.4621e-02 
+22-02-23 10:13:28.627 - INFO: ======> 1w Iter Time: 705.70 (614.10)s, Will finish at: 02/24 10:06:22
+22-02-23 10:25:14.995 - INFO: [epoch:  6, iter: 610,000, lr:(1.575e-04,)] l_pix: 2.2683e-02 
+22-02-23 10:25:15.203 - INFO: ======> 1w Iter Time: 706.58 (615.62)s, Will finish at: 02/24 10:11:25
+22-02-23 10:37:01.598 - INFO: [epoch:  6, iter: 620,000, lr:(1.562e-04,)] l_pix: 2.4482e-02 
+22-02-23 10:37:02.392 - INFO: ======> 1w Iter Time: 707.19 (617.09)s, Will finish at: 02/24 10:16:21
+22-02-23 10:48:50.379 - INFO: [epoch:  6, iter: 630,000, lr:(1.549e-04,)] l_pix: 2.0399e-02 
+22-02-23 10:48:50.502 - INFO: ======> 1w Iter Time: 708.11 (618.54)s, Will finish at: 02/24 10:21:10
+22-02-23 11:00:42.530 - INFO: [epoch:  6, iter: 640,000, lr:(1.536e-04,)] l_pix: 2.6016e-02 
+22-02-23 11:00:42.677 - INFO: ======> 1w Iter Time: 712.18 (620.00)s, Will finish at: 02/24 10:26:02
+22-02-23 11:12:39.841 - INFO: [epoch:  6, iter: 650,000, lr:(1.523e-04,)] l_pix: 2.0262e-02 
+22-02-23 11:12:40.051 - INFO: ======> 1w Iter Time: 717.37 (621.50)s, Will finish at: 02/24 10:31:02
+22-02-23 11:24:31.635 - INFO: [epoch:  6, iter: 660,000, lr:(1.509e-04,)] l_pix: 2.8861e-02 
+22-02-23 11:24:31.869 - INFO: ======> 1w Iter Time: 711.82 (622.87)s, Will finish at: 02/24 10:35:35
+22-02-23 11:36:27.239 - INFO: [epoch:  6, iter: 670,000, lr:(1.496e-04,)] l_pix: 2.4177e-02 
+22-02-23 11:36:27.582 - INFO: ======> 1w Iter Time: 715.71 (624.25)s, Will finish at: 02/24 10:40:13
+22-02-23 11:48:16.868 - INFO: [epoch:  6, iter: 680,000, lr:(1.482e-04,)] l_pix: 3.3995e-02 
+22-02-23 11:48:17.010 - INFO: ======> 1w Iter Time: 709.43 (625.51)s, Will finish at: 02/24 10:44:23
+22-02-23 12:00:10.027 - INFO: [epoch:  6, iter: 690,000, lr:(1.468e-04,)] l_pix: 2.2199e-02 
+22-02-23 12:00:13.408 - INFO: ======> 1w Iter Time: 716.40 (626.82)s, Will finish at: 02/24 10:48:47
+22-02-23 12:12:10.072 - INFO: [epoch:  7, iter: 700,000, lr:(1.454e-04,)] l_pix: 2.7821e-02 
+22-02-23 12:12:11.299 - INFO: ======> 1w Iter Time: 717.89 (628.12)s, Will finish at: 02/24 10:53:07
+22-02-23 12:24:01.891 - INFO: [epoch:  7, iter: 710,000, lr:(1.440e-04,)] l_pix: 2.0732e-02 
+22-02-23 12:24:02.080 - INFO: ======> 1w Iter Time: 710.78 (629.29)s, Will finish at: 02/24 10:57:00
+22-02-23 12:35:54.678 - INFO: [epoch:  7, iter: 720,000, lr:(1.426e-04,)] l_pix: 2.4509e-02 
+22-02-23 12:35:54.795 - INFO: ======> 1w Iter Time: 712.72 (630.45)s, Will finish at: 02/24 11:00:51
+22-02-23 12:47:45.961 - INFO: [epoch:  7, iter: 730,000, lr:(1.412e-04,)] l_pix: 2.7634e-02 
+22-02-23 12:47:46.103 - INFO: ======> 1w Iter Time: 711.31 (631.55)s, Will finish at: 02/24 11:04:33
+22-02-23 12:59:36.707 - INFO: [epoch:  7, iter: 740,000, lr:(1.397e-04,)] l_pix: 2.3357e-02 
+22-02-23 12:59:36.857 - INFO: ======> 1w Iter Time: 710.75 (632.62)s, Will finish at: 02/24 11:08:07
+22-02-23 13:11:30.492 - INFO: [epoch:  7, iter: 750,000, lr:(1.383e-04,)] l_pix: 3.8002e-02 
+22-02-23 13:11:31.315 - INFO: ======> 1w Iter Time: 714.46 (633.72)s, Will finish at: 02/24 11:11:45
+22-02-23 13:23:20.828 - INFO: [epoch:  7, iter: 760,000, lr:(1.368e-04,)] l_pix: 2.8362e-02 
+22-02-23 13:23:20.963 - INFO: ======> 1w Iter Time: 709.65 (634.71)s, Will finish at: 02/24 11:15:05
+22-02-23 13:35:14.263 - INFO: [epoch:  7, iter: 770,000, lr:(1.354e-04,)] l_pix: 1.8055e-02 
+22-02-23 13:35:14.387 - INFO: ======> 1w Iter Time: 713.42 (635.74)s, Will finish at: 02/24 11:18:29
+22-02-23 13:47:07.157 - INFO: [epoch:  7, iter: 780,000, lr:(1.339e-04,)] l_pix: 3.0222e-02 
+22-02-23 13:47:07.295 - INFO: ======> 1w Iter Time: 712.91 (636.73)s, Will finish at: 02/24 11:21:47
+22-02-23 13:58:58.314 - INFO: [epoch:  7, iter: 790,000, lr:(1.324e-04,)] l_pix: 2.2390e-02 
+22-02-23 13:58:58.450 - INFO: ======> 1w Iter Time: 711.16 (637.67)s, Will finish at: 02/24 11:24:56
+22-02-23 14:10:48.931 - INFO: [epoch:  8, iter: 800,000, lr:(1.309e-04,)] l_pix: 2.1801e-02 
+22-02-23 14:10:49.085 - INFO: ======> 1w Iter Time: 710.64 (638.58)s, Will finish at: 02/24 11:27:58
+22-02-23 14:22:42.278 - INFO: [epoch:  8, iter: 810,000, lr:(1.294e-04,)] l_pix: 1.9004e-02 
+22-02-23 14:22:42.461 - INFO: ======> 1w Iter Time: 713.38 (639.50)s, Will finish at: 02/24 11:31:03
+22-02-23 14:34:35.129 - INFO: [epoch:  8, iter: 820,000, lr:(1.279e-04,)] l_pix: 2.0676e-02 
+22-02-23 14:34:35.294 - INFO: ======> 1w Iter Time: 712.83 (640.40)s, Will finish at: 02/24 11:34:02
+22-02-23 14:46:28.080 - INFO: [epoch:  8, iter: 830,000, lr:(1.264e-04,)] l_pix: 2.6239e-02 
+22-02-23 14:46:28.536 - INFO: ======> 1w Iter Time: 713.24 (641.28)s, Will finish at: 02/24 11:36:57
+22-02-23 14:58:22.717 - INFO: [epoch:  8, iter: 840,000, lr:(1.249e-04,)] l_pix: 2.3189e-02 
+22-02-23 14:58:22.904 - INFO: ======> 1w Iter Time: 714.37 (642.15)s, Will finish at: 02/24 11:39:51
+22-02-23 15:10:18.083 - INFO: [epoch:  8, iter: 850,000, lr:(1.234e-04,)] l_pix: 2.5497e-02 
+22-02-23 15:10:18.369 - INFO: ======> 1w Iter Time: 715.46 (643.01)s, Will finish at: 02/24 11:42:44
+22-02-23 15:22:10.540 - INFO: [epoch:  8, iter: 860,000, lr:(1.219e-04,)] l_pix: 2.6133e-02 
+22-02-23 15:22:10.723 - INFO: ======> 1w Iter Time: 712.35 (643.81)s, Will finish at: 02/24 11:45:25
+22-02-23 15:34:02.840 - INFO: [epoch:  8, iter: 870,000, lr:(1.203e-04,)] l_pix: 2.0127e-02 
+22-02-23 15:34:02.949 - INFO: ======> 1w Iter Time: 712.23 (644.60)s, Will finish at: 02/24 11:48:02
+22-02-23 15:45:58.323 - INFO: [epoch:  8, iter: 880,000, lr:(1.188e-04,)] l_pix: 2.3616e-02 
+22-02-23 15:45:58.463 - INFO: ======> 1w Iter Time: 715.51 (645.41)s, Will finish at: 02/24 11:50:43
+22-02-23 15:57:51.392 - INFO: [epoch:  8, iter: 890,000, lr:(1.172e-04,)] l_pix: 2.6864e-02 
+22-02-23 15:57:51.752 - INFO: ======> 1w Iter Time: 713.29 (646.17)s, Will finish at: 02/24 11:53:16
+22-02-23 16:05:25.958 - INFO: [epoch:  9, iter: 900,000, lr:(1.157e-04,)] l_pix: 3.5194e-02 
+22-02-23 16:05:26.138 - INFO: ======> 1w Iter Time: 454.39 (644.04)s, Will finish at: 02/24 11:46:10
+22-02-23 16:12:19.529 - INFO: [epoch:  9, iter: 910,000, lr:(1.141e-04,)] l_pix: 2.1598e-02 
+22-02-23 16:12:19.785 - INFO: ======> 1w Iter Time: 413.65 (641.51)s, Will finish at: 02/24 11:37:43
+22-02-23 16:19:03.197 - INFO: [epoch:  9, iter: 920,000, lr:(1.126e-04,)] l_pix: 3.0468e-02 
+22-02-23 16:19:03.330 - INFO: ======> 1w Iter Time: 403.55 (638.92)s, Will finish at: 02/24 11:29:06
+22-02-23 16:25:48.680 - INFO: [epoch:  9, iter: 930,000, lr:(1.110e-04,)] l_pix: 2.5481e-02 
+22-02-23 16:25:48.789 - INFO: ======> 1w Iter Time: 405.46 (636.41)s, Will finish at: 02/24 11:20:44
+22-02-23 16:32:40.063 - INFO: [epoch:  9, iter: 940,000, lr:(1.095e-04,)] l_pix: 2.6890e-02 
+22-02-23 16:32:40.321 - INFO: ======> 1w Iter Time: 411.53 (634.02)s, Will finish at: 02/24 11:12:46
+22-02-23 16:39:33.166 - INFO: [epoch:  9, iter: 950,000, lr:(1.079e-04,)] l_pix: 2.4009e-02 
+22-02-23 16:39:33.291 - INFO: ======> 1w Iter Time: 412.97 (631.69)s, Will finish at: 02/24 11:05:00
+22-02-23 16:46:26.814 - INFO: [epoch:  9, iter: 960,000, lr:(1.063e-04,)] l_pix: 1.5582e-02 
+22-02-23 16:46:26.953 - INFO: ======> 1w Iter Time: 413.66 (629.42)s, Will finish at: 02/24 10:57:26
+22-02-23 16:53:22.117 - INFO: [epoch:  9, iter: 970,000, lr:(1.048e-04,)] l_pix: 3.0096e-02 
+22-02-23 16:53:22.580 - INFO: ======> 1w Iter Time: 415.63 (627.22)s, Will finish at: 02/24 10:50:05
+22-02-23 17:00:17.166 - INFO: [epoch:  9, iter: 980,000, lr:(1.032e-04,)] l_pix: 2.9372e-02 
+22-02-23 17:00:18.431 - INFO: ======> 1w Iter Time: 415.85 (625.06)s, Will finish at: 02/24 10:42:54
+22-02-23 17:07:13.966 - INFO: [epoch:  9, iter: 990,000, lr:(1.016e-04,)] l_pix: 1.8583e-02 
+22-02-23 17:07:14.110 - INFO: ======> 1w Iter Time: 415.68 (622.94)s, Will finish at: 02/24 10:35:51
+22-02-23 17:14:09.595 - INFO: [epoch: 10, iter:1,000,000, lr:(1.000e-04,)] l_pix: 2.7009e-02 
+22-02-23 17:14:09.869 - INFO: ======> 1w Iter Time: 415.76 (620.87)s, Will finish at: 02/24 10:28:57
+22-02-23 17:21:03.576 - INFO: [epoch: 10, iter:1,010,000, lr:(9.848e-05,)] l_pix: 3.0185e-02 
+22-02-23 17:21:04.715 - INFO: ======> 1w Iter Time: 414.85 (618.83)s, Will finish at: 02/24 10:22:09
+22-02-23 17:27:58.649 - INFO: [epoch: 10, iter:1,020,000, lr:(9.691e-05,)] l_pix: 2.5237e-02 
+22-02-23 17:27:59.894 - INFO: ======> 1w Iter Time: 415.18 (616.84)s, Will finish at: 02/24 10:15:29
+22-02-23 17:34:53.527 - INFO: [epoch: 10, iter:1,030,000, lr:(9.534e-05,)] l_pix: 3.2099e-02 
+22-02-23 17:34:53.699 - INFO: ======> 1w Iter Time: 413.80 (614.86)s, Will finish at: 02/24 10:08:55
+22-02-23 17:41:47.023 - INFO: [epoch: 10, iter:1,040,000, lr:(9.377e-05,)] l_pix: 3.1831e-02 
+22-02-23 17:41:47.210 - INFO: ======> 1w Iter Time: 413.51 (612.93)s, Will finish at: 02/24 10:02:28
+22-02-23 17:48:41.378 - INFO: [epoch: 10, iter:1,050,000, lr:(9.221e-05,)] l_pix: 2.4759e-02 
+22-02-23 17:48:41.557 - INFO: ======> 1w Iter Time: 414.35 (611.04)s, Will finish at: 02/24 09:56:10
+22-02-23 17:55:36.182 - INFO: [epoch: 10, iter:1,060,000, lr:(9.064e-05,)] l_pix: 2.1031e-02 
+22-02-23 17:55:36.301 - INFO: ======> 1w Iter Time: 414.74 (609.19)s, Will finish at: 02/24 09:49:59
+22-02-23 18:02:30.470 - INFO: [epoch: 10, iter:1,070,000, lr:(8.908e-05,)] l_pix: 1.9955e-02 
+22-02-23 18:02:30.627 - INFO: ======> 1w Iter Time: 414.33 (607.36)s, Will finish at: 02/24 09:43:55
+22-02-23 18:09:25.836 - INFO: [epoch: 10, iter:1,080,000, lr:(8.752e-05,)] l_pix: 2.8343e-02 
+22-02-23 18:09:26.768 - INFO: ======> 1w Iter Time: 416.14 (605.59)s, Will finish at: 02/24 09:38:01
+22-02-23 18:16:21.079 - INFO: [epoch: 10, iter:1,090,000, lr:(8.597e-05,)] l_pix: 3.1411e-02 
+22-02-23 18:16:21.536 - INFO: ======> 1w Iter Time: 414.77 (603.84)s, Will finish at: 02/24 09:32:11
+22-02-23 18:23:16.496 - INFO: [epoch: 11, iter:1,100,000, lr:(8.441e-05,)] l_pix: 4.1616e-02 
+22-02-23 18:23:16.995 - INFO: ======> 1w Iter Time: 415.46 (602.13)s, Will finish at: 02/24 09:26:28
+22-02-23 18:30:10.137 - INFO: [epoch: 11, iter:1,110,000, lr:(8.287e-05,)] l_pix: 2.4436e-02 
+22-02-23 18:30:10.412 - INFO: ======> 1w Iter Time: 413.42 (600.43)s, Will finish at: 02/24 09:20:48
+22-02-23 18:37:03.964 - INFO: [epoch: 11, iter:1,120,000, lr:(8.132e-05,)] l_pix: 2.2344e-02 
+22-02-23 18:37:04.090 - INFO: ======> 1w Iter Time: 413.68 (598.76)s, Will finish at: 02/24 09:15:15
+22-02-23 18:43:57.794 - INFO: [epoch: 11, iter:1,130,000, lr:(7.978e-05,)] l_pix: 3.0101e-02 
+22-02-23 18:43:57.914 - INFO: ======> 1w Iter Time: 413.82 (597.13)s, Will finish at: 02/24 09:09:47
+22-02-23 18:50:52.634 - INFO: [epoch: 11, iter:1,140,000, lr:(7.825e-05,)] l_pix: 2.5337e-02 
+22-02-23 18:50:52.741 - INFO: ======> 1w Iter Time: 414.83 (595.53)s, Will finish at: 02/24 09:04:28
+22-02-23 18:57:49.188 - INFO: [epoch: 11, iter:1,150,000, lr:(7.672e-05,)] l_pix: 2.0149e-02 
+22-02-23 18:57:49.352 - INFO: ======> 1w Iter Time: 416.61 (593.97)s, Will finish at: 02/24 08:59:16
+22-02-23 19:04:43.600 - INFO: [epoch: 11, iter:1,160,000, lr:(7.519e-05,)] l_pix: 2.7819e-02 
+22-02-23 19:04:43.933 - INFO: ======> 1w Iter Time: 414.58 (592.42)s, Will finish at: 02/24 08:54:07
+22-02-23 19:11:37.311 - INFO: [epoch: 11, iter:1,170,000, lr:(7.368e-05,)] l_pix: 2.0989e-02 
+22-02-23 19:11:37.438 - INFO: ======> 1w Iter Time: 413.51 (590.90)s, Will finish at: 02/24 08:49:01
+22-02-23 19:18:32.182 - INFO: [epoch: 11, iter:1,180,000, lr:(7.216e-05,)] l_pix: 2.6199e-02 
+22-02-23 19:18:32.317 - INFO: ======> 1w Iter Time: 414.88 (589.40)s, Will finish at: 02/24 08:44:03
+22-02-23 19:25:26.679 - INFO: [epoch: 11, iter:1,190,000, lr:(7.066e-05,)] l_pix: 2.6183e-02 
+22-02-23 19:25:27.120 - INFO: ======> 1w Iter Time: 414.80 (587.94)s, Will finish at: 02/24 08:39:09
+22-02-23 19:32:22.153 - INFO: [epoch: 12, iter:1,200,000, lr:(6.916e-05,)] l_pix: 3.2717e-02 
+22-02-23 19:32:22.276 - INFO: ======> 1w Iter Time: 415.16 (586.50)s, Will finish at: 02/24 08:34:21
+22-02-23 19:39:15.412 - INFO: [epoch: 12, iter:1,210,000, lr:(6.767e-05,)] l_pix: 2.3023e-02 
+22-02-23 19:39:15.549 - INFO: ======> 1w Iter Time: 413.27 (585.07)s, Will finish at: 02/24 08:29:35
+22-02-23 19:46:08.687 - INFO: [epoch: 12, iter:1,220,000, lr:(6.619e-05,)] l_pix: 2.4452e-02 
+22-02-23 19:46:08.823 - INFO: ======> 1w Iter Time: 413.27 (583.66)s, Will finish at: 02/24 08:24:54
+22-02-23 19:53:03.962 - INFO: [epoch: 12, iter:1,230,000, lr:(6.472e-05,)] l_pix: 3.2299e-02 
+22-02-23 19:53:04.160 - INFO: ======> 1w Iter Time: 415.34 (582.29)s, Will finish at: 02/24 08:20:20
+22-02-23 19:59:56.991 - INFO: [epoch: 12, iter:1,240,000, lr:(6.326e-05,)] l_pix: 4.0359e-02 
+22-02-23 19:59:57.105 - INFO: ======> 1w Iter Time: 412.94 (580.92)s, Will finish at: 02/24 08:15:47
+22-02-23 20:06:51.240 - INFO: [epoch: 12, iter:1,250,000, lr:(6.180e-05,)] l_pix: 2.6101e-02 
+22-02-23 20:06:51.626 - INFO: ======> 1w Iter Time: 414.52 (579.59)s, Will finish at: 02/24 08:11:20
+22-02-23 20:13:45.829 - INFO: [epoch: 12, iter:1,260,000, lr:(6.036e-05,)] l_pix: 2.3152e-02 
+22-02-23 20:13:45.983 - INFO: ======> 1w Iter Time: 414.36 (578.28)s, Will finish at: 02/24 08:06:58
+22-02-23 20:20:40.973 - INFO: [epoch: 12, iter:1,270,000, lr:(5.892e-05,)] l_pix: 2.3606e-02 
+22-02-23 20:20:41.417 - INFO: ======> 1w Iter Time: 415.43 (577.00)s, Will finish at: 02/24 08:02:42
+22-02-23 20:27:36.321 - INFO: [epoch: 12, iter:1,280,000, lr:(5.749e-05,)] l_pix: 2.2949e-02 
+22-02-23 20:27:36.458 - INFO: ======> 1w Iter Time: 415.04 (575.73)s, Will finish at: 02/24 07:58:29
+22-02-23 20:34:30.373 - INFO: [epoch: 12, iter:1,290,000, lr:(5.608e-05,)] l_pix: 3.4256e-02 
+22-02-23 20:34:30.602 - INFO: ======> 1w Iter Time: 414.14 (574.48)s, Will finish at: 02/24 07:54:18
+22-02-23 20:41:25.002 - INFO: [epoch: 13, iter:1,300,000, lr:(5.467e-05,)] l_pix: 2.8071e-02 
+22-02-23 20:41:25.211 - INFO: ======> 1w Iter Time: 414.61 (573.25)s, Will finish at: 02/24 07:50:12
+22-02-23 20:48:20.323 - INFO: [epoch: 13, iter:1,310,000, lr:(5.328e-05,)] l_pix: 2.8655e-02 
+22-02-23 20:48:20.497 - INFO: ======> 1w Iter Time: 415.29 (572.04)s, Will finish at: 02/24 07:46:11
+22-02-23 20:55:17.308 - INFO: [epoch: 13, iter:1,320,000, lr:(5.190e-05,)] l_pix: 2.0285e-02 
+22-02-23 20:55:18.654 - INFO: ======> 1w Iter Time: 418.16 (570.88)s, Will finish at: 02/24 07:42:18
+22-02-23 21:02:13.373 - INFO: [epoch: 13, iter:1,330,000, lr:(5.053e-05,)] l_pix: 2.6937e-02 
+22-02-23 21:02:13.551 - INFO: ======> 1w Iter Time: 414.90 (569.71)s, Will finish at: 02/24 07:38:23
+22-02-23 21:09:07.753 - INFO: [epoch: 13, iter:1,340,000, lr:(4.917e-05,)] l_pix: 2.4177e-02 
+22-02-23 21:09:07.989 - INFO: ======> 1w Iter Time: 414.44 (568.55)s, Will finish at: 02/24 07:34:32
+22-02-23 21:16:02.585 - INFO: [epoch: 13, iter:1,350,000, lr:(4.783e-05,)] l_pix: 2.2567e-02 
+22-02-23 21:16:02.754 - INFO: ======> 1w Iter Time: 414.77 (567.41)s, Will finish at: 02/24 07:30:44
+22-02-23 21:22:56.636 - INFO: [epoch: 13, iter:1,360,000, lr:(4.649e-05,)] l_pix: 3.1480e-02 
+22-02-23 21:22:56.797 - INFO: ======> 1w Iter Time: 414.04 (566.28)s, Will finish at: 02/24 07:26:58
+22-02-23 21:29:50.712 - INFO: [epoch: 13, iter:1,370,000, lr:(4.518e-05,)] l_pix: 2.1564e-02 
+22-02-23 21:29:50.853 - INFO: ======> 1w Iter Time: 414.06 (565.17)s, Will finish at: 02/24 07:23:16
+22-02-23 21:36:44.213 - INFO: [epoch: 13, iter:1,380,000, lr:(4.387e-05,)] l_pix: 2.4281e-02 
+22-02-23 21:36:44.398 - INFO: ======> 1w Iter Time: 413.54 (564.07)s, Will finish at: 02/24 07:19:36
+22-02-23 21:43:38.263 - INFO: [epoch: 13, iter:1,390,000, lr:(4.258e-05,)] l_pix: 1.8677e-02 
+22-02-23 21:43:39.734 - INFO: ======> 1w Iter Time: 415.34 (563.00)s, Will finish at: 02/24 07:16:02
+22-02-23 21:50:33.338 - INFO: [epoch: 14, iter:1,400,000, lr:(4.130e-05,)] l_pix: 2.2777e-02 
+22-02-23 21:50:34.719 - INFO: ======> 1w Iter Time: 414.99 (561.94)s, Will finish at: 02/24 07:12:31
+22-02-23 21:57:29.502 - INFO: [epoch: 14, iter:1,410,000, lr:(4.004e-05,)] l_pix: 2.0524e-02 
+22-02-23 21:57:29.617 - INFO: ======> 1w Iter Time: 414.90 (560.90)s, Will finish at: 02/24 07:09:02
+22-02-23 22:04:23.704 - INFO: [epoch: 14, iter:1,420,000, lr:(3.879e-05,)] l_pix: 2.1397e-02 
+22-02-23 22:04:25.087 - INFO: ======> 1w Iter Time: 415.47 (559.88)s, Will finish at: 02/24 07:05:37
+22-02-23 22:11:19.040 - INFO: [epoch: 14, iter:1,430,000, lr:(3.756e-05,)] l_pix: 3.1220e-02 
+22-02-23 22:11:19.244 - INFO: ======> 1w Iter Time: 414.16 (558.86)s, Will finish at: 02/24 07:02:14
+22-02-23 22:18:12.725 - INFO: [epoch: 14, iter:1,440,000, lr:(3.634e-05,)] l_pix: 2.3480e-02 
+22-02-23 22:18:12.921 - INFO: ======> 1w Iter Time: 413.68 (557.85)s, Will finish at: 02/24 06:58:52
+22-02-23 22:25:07.863 - INFO: [epoch: 14, iter:1,450,000, lr:(3.514e-05,)] l_pix: 2.1733e-02 
+22-02-23 22:25:07.974 - INFO: ======> 1w Iter Time: 415.05 (556.86)s, Will finish at: 02/24 06:55:35
+22-02-23 22:32:02.956 - INFO: [epoch: 14, iter:1,460,000, lr:(3.395e-05,)] l_pix: 2.0993e-02 
+22-02-23 22:32:03.068 - INFO: ======> 1w Iter Time: 415.09 (555.89)s, Will finish at: 02/24 06:52:21
+22-02-23 22:38:57.308 - INFO: [epoch: 14, iter:1,470,000, lr:(3.278e-05,)] l_pix: 2.6657e-02 
+22-02-23 22:38:57.423 - INFO: ======> 1w Iter Time: 414.36 (554.93)s, Will finish at: 02/24 06:49:08
+22-02-23 22:45:48.679 - INFO: [epoch: 14, iter:1,480,000, lr:(3.163e-05,)] l_pix: 2.8348e-02 
+22-02-23 22:45:48.895 - INFO: ======> 1w Iter Time: 411.47 (553.96)s, Will finish at: 02/24 06:45:54
+22-02-23 22:52:35.737 - INFO: [epoch: 14, iter:1,490,000, lr:(3.049e-05,)] l_pix: 2.3964e-02 
+22-02-23 22:52:35.916 - INFO: ======> 1w Iter Time: 407.02 (552.97)s, Will finish at: 02/24 06:42:37
+22-02-23 22:59:22.467 - INFO: [epoch: 15, iter:1,500,000, lr:(2.937e-05,)] l_pix: 1.8123e-02 
+22-02-23 22:59:22.581 - INFO: ======> 1w Iter Time: 406.67 (552.00)s, Will finish at: 02/24 06:39:22
+22-02-23 23:06:07.025 - INFO: [epoch: 15, iter:1,510,000, lr:(2.827e-05,)] l_pix: 2.0892e-02 
+22-02-23 23:06:07.206 - INFO: ======> 1w Iter Time: 404.62 (551.02)s, Will finish at: 02/24 06:36:07
+22-02-23 23:12:54.496 - INFO: [epoch: 15, iter:1,520,000, lr:(2.719e-05,)] l_pix: 3.4685e-02 
+22-02-23 23:12:54.678 - INFO: ======> 1w Iter Time: 407.47 (550.08)s, Will finish at: 02/24 06:32:58
+22-02-23 23:19:41.809 - INFO: [epoch: 15, iter:1,530,000, lr:(2.612e-05,)] l_pix: 2.2794e-02 
+22-02-23 23:19:42.006 - INFO: ======> 1w Iter Time: 407.33 (549.15)s, Will finish at: 02/24 06:29:51
+22-02-23 23:26:28.974 - INFO: [epoch: 15, iter:1,540,000, lr:(2.508e-05,)] l_pix: 3.2773e-02 
+22-02-23 23:26:29.144 - INFO: ======> 1w Iter Time: 407.14 (548.22)s, Will finish at: 02/24 06:26:47
+22-02-23 23:33:21.727 - INFO: [epoch: 15, iter:1,550,000, lr:(2.405e-05,)] l_pix: 1.8977e-02 
+22-02-23 23:33:22.659 - INFO: ======> 1w Iter Time: 413.52 (547.35)s, Will finish at: 02/24 06:23:53
+22-02-23 23:40:44.253 - INFO: [epoch: 15, iter:1,560,000, lr:(2.304e-05,)] l_pix: 2.8199e-02 
+22-02-23 23:40:44.427 - INFO: ======> 1w Iter Time: 441.77 (546.68)s, Will finish at: 02/24 06:21:38
+22-02-23 23:47:50.017 - INFO: [epoch: 15, iter:1,570,000, lr:(2.205e-05,)] l_pix: 2.3181e-02 
+22-02-23 23:47:50.137 - INFO: ======> 1w Iter Time: 425.71 (545.91)s, Will finish at: 02/24 06:19:04
+22-02-23 23:54:35.207 - INFO: [epoch: 15, iter:1,580,000, lr:(2.107e-05,)] l_pix: 1.9869e-02 
+22-02-23 23:54:35.319 - INFO: ======> 1w Iter Time: 405.18 (545.02)s, Will finish at: 02/24 06:16:05
+22-02-24 00:01:20.560 - INFO: [epoch: 15, iter:1,590,000, lr:(2.012e-05,)] l_pix: 2.6832e-02 
+22-02-24 00:01:20.691 - INFO: ======> 1w Iter Time: 405.37 (544.14)s, Will finish at: 02/24 06:13:10
+22-02-24 00:08:05.632 - INFO: [epoch: 16, iter:1,600,000, lr:(1.919e-05,)] l_pix: 1.6353e-02 
+22-02-24 00:08:05.889 - INFO: ======> 1w Iter Time: 405.20 (543.27)s, Will finish at: 02/24 06:10:16
+22-02-24 00:14:53.869 - INFO: [epoch: 16, iter:1,610,000, lr:(1.828e-05,)] l_pix: 2.4733e-02 
+22-02-24 00:14:54.092 - INFO: ======> 1w Iter Time: 408.20 (542.43)s, Will finish at: 02/24 06:07:28
+22-02-24 00:21:41.591 - INFO: [epoch: 16, iter:1,620,000, lr:(1.738e-05,)] l_pix: 2.2441e-02 
+22-02-24 00:21:41.718 - INFO: ======> 1w Iter Time: 407.63 (541.60)s, Will finish at: 02/24 06:04:42
+22-02-24 00:28:32.758 - INFO: [epoch: 16, iter:1,630,000, lr:(1.651e-05,)] l_pix: 3.0486e-02 
+22-02-24 00:28:33.317 - INFO: ======> 1w Iter Time: 411.60 (540.80)s, Will finish at: 02/24 06:02:02
+22-02-24 00:35:24.328 - INFO: [epoch: 16, iter:1,640,000, lr:(1.566e-05,)] l_pix: 1.8308e-02 
+22-02-24 00:35:24.471 - INFO: ======> 1w Iter Time: 411.15 (540.01)s, Will finish at: 02/24 05:59:24
+22-02-24 00:42:17.235 - INFO: [epoch: 16, iter:1,650,000, lr:(1.483e-05,)] l_pix: 2.0546e-02 
+22-02-24 00:42:17.360 - INFO: ======> 1w Iter Time: 412.89 (539.24)s, Will finish at: 02/24 05:56:50
+22-02-24 00:49:12.954 - INFO: [epoch: 16, iter:1,660,000, lr:(1.402e-05,)] l_pix: 2.5680e-02 
+22-02-24 00:49:13.089 - INFO: ======> 1w Iter Time: 415.73 (538.50)s, Will finish at: 02/24 05:54:21
+22-02-24 00:56:12.694 - INFO: [epoch: 16, iter:1,670,000, lr:(1.323e-05,)] l_pix: 2.1517e-02 
+22-02-24 00:56:12.823 - INFO: ======> 1w Iter Time: 419.73 (537.79)s, Will finish at: 02/24 05:51:59
+22-02-24 01:03:12.370 - INFO: [epoch: 16, iter:1,680,000, lr:(1.246e-05,)] l_pix: 2.5953e-02 
+22-02-24 01:03:12.480 - INFO: ======> 1w Iter Time: 419.66 (537.08)s, Will finish at: 02/24 05:49:39
+22-02-24 01:10:13.080 - INFO: [epoch: 16, iter:1,690,000, lr:(1.172e-05,)] l_pix: 2.5054e-02 
+22-02-24 01:10:13.198 - INFO: ======> 1w Iter Time: 420.72 (536.39)s, Will finish at: 02/24 05:47:21
+22-02-24 01:17:14.381 - INFO: [epoch: 17, iter:1,700,000, lr:(1.099e-05,)] l_pix: 2.2495e-02 
+22-02-24 01:17:14.499 - INFO: ======> 1w Iter Time: 421.30 (535.72)s, Will finish at: 02/24 05:45:05
+22-02-24 01:24:16.186 - INFO: [epoch: 17, iter:1,710,000, lr:(1.029e-05,)] l_pix: 2.4983e-02 
+22-02-24 01:24:16.289 - INFO: ======> 1w Iter Time: 421.79 (535.05)s, Will finish at: 02/24 05:42:52
+22-02-24 01:31:17.724 - INFO: [epoch: 17, iter:1,720,000, lr:(9.613e-06,)] l_pix: 2.6637e-02 
+22-02-24 01:31:17.861 - INFO: ======> 1w Iter Time: 421.57 (534.39)s, Will finish at: 02/24 05:40:40
+22-02-24 01:38:20.853 - INFO: [epoch: 17, iter:1,730,000, lr:(8.955e-06,)] l_pix: 3.2013e-02 
+22-02-24 01:38:20.987 - INFO: ======> 1w Iter Time: 423.13 (533.75)s, Will finish at: 02/24 05:38:32
+22-02-24 01:45:24.036 - INFO: [epoch: 17, iter:1,740,000, lr:(8.320e-06,)] l_pix: 1.7424e-02 
+22-02-24 01:45:24.152 - INFO: ======> 1w Iter Time: 423.17 (533.11)s, Will finish at: 02/24 05:36:25
+22-02-24 01:52:26.405 - INFO: [epoch: 17, iter:1,750,000, lr:(7.708e-06,)] l_pix: 2.0416e-02 
+22-02-24 01:52:26.512 - INFO: ======> 1w Iter Time: 422.36 (532.48)s, Will finish at: 02/24 05:34:18
+22-02-24 01:59:26.890 - INFO: [epoch: 17, iter:1,760,000, lr:(7.119e-06,)] l_pix: 2.3035e-02 
+22-02-24 01:59:26.998 - INFO: ======> 1w Iter Time: 420.49 (531.84)s, Will finish at: 02/24 05:32:11
+22-02-24 02:06:27.955 - INFO: [epoch: 17, iter:1,770,000, lr:(6.552e-06,)] l_pix: 2.3965e-02 
+22-02-24 02:06:28.047 - INFO: ======> 1w Iter Time: 421.05 (531.22)s, Will finish at: 02/24 05:30:05
+22-02-24 02:13:29.951 - INFO: [epoch: 17, iter:1,780,000, lr:(6.009e-06,)] l_pix: 3.3509e-02 
+22-02-24 02:13:30.063 - INFO: ======> 1w Iter Time: 422.02 (530.60)s, Will finish at: 02/24 05:28:03
+22-02-24 02:20:31.975 - INFO: [epoch: 17, iter:1,790,000, lr:(5.489e-06,)] l_pix: 2.0064e-02 
+22-02-24 02:20:32.154 - INFO: ======> 1w Iter Time: 422.09 (530.00)s, Will finish at: 02/24 05:26:02
+22-02-24 02:27:34.631 - INFO: [epoch: 18, iter:1,800,000, lr:(4.992e-06,)] l_pix: 3.2915e-02 
+22-02-24 02:27:34.729 - INFO: ======> 1w Iter Time: 422.57 (529.40)s, Will finish at: 02/24 05:24:02
+22-02-24 02:34:36.690 - INFO: [epoch: 18, iter:1,810,000, lr:(4.518e-06,)] l_pix: 2.1235e-02 
+22-02-24 02:34:37.063 - INFO: ======> 1w Iter Time: 422.33 (528.81)s, Will finish at: 02/24 05:22:04
+22-02-24 02:41:39.793 - INFO: [epoch: 18, iter:1,820,000, lr:(4.069e-06,)] l_pix: 4.0423e-02 
+22-02-24 02:41:40.039 - INFO: ======> 1w Iter Time: 422.98 (528.23)s, Will finish at: 02/24 05:20:08
+22-02-24 02:48:41.629 - INFO: [epoch: 18, iter:1,830,000, lr:(3.642e-06,)] l_pix: 2.8348e-02 
+22-02-24 02:48:41.738 - INFO: ======> 1w Iter Time: 421.70 (527.65)s, Will finish at: 02/24 05:18:11
+22-02-24 02:55:45.038 - INFO: [epoch: 18, iter:1,840,000, lr:(3.240e-06,)] l_pix: 1.4369e-02 
+22-02-24 02:55:45.130 - INFO: ======> 1w Iter Time: 423.39 (527.08)s, Will finish at: 02/24 05:16:18
+22-02-24 03:02:45.870 - INFO: [epoch: 18, iter:1,850,000, lr:(2.862e-06,)] l_pix: 2.0995e-02 
+22-02-24 03:02:45.989 - INFO: ======> 1w Iter Time: 420.86 (526.50)s, Will finish at: 02/24 05:14:23
+22-02-24 03:09:47.250 - INFO: [epoch: 18, iter:1,860,000, lr:(2.507e-06,)] l_pix: 2.2409e-02 
+22-02-24 03:09:47.351 - INFO: ======> 1w Iter Time: 421.36 (525.94)s, Will finish at: 02/24 05:12:30
+22-02-24 03:16:48.262 - INFO: [epoch: 18, iter:1,870,000, lr:(2.177e-06,)] l_pix: 2.4683e-02 
+22-02-24 03:16:48.373 - INFO: ======> 1w Iter Time: 421.02 (525.38)s, Will finish at: 02/24 05:10:38
+22-02-24 03:23:50.196 - INFO: [epoch: 18, iter:1,880,000, lr:(1.870e-06,)] l_pix: 3.3504e-02 
+22-02-24 03:23:50.292 - INFO: ======> 1w Iter Time: 421.92 (524.83)s, Will finish at: 02/24 05:08:48
+22-02-24 03:30:52.775 - INFO: [epoch: 18, iter:1,890,000, lr:(1.588e-06,)] l_pix: 3.5219e-02 
+22-02-24 03:30:52.893 - INFO: ======> 1w Iter Time: 422.60 (524.29)s, Will finish at: 02/24 05:06:59
+22-02-24 03:37:54.658 - INFO: [epoch: 19, iter:1,900,000, lr:(1.331e-06,)] l_pix: 2.3019e-02 
+22-02-24 03:37:54.813 - INFO: ======> 1w Iter Time: 421.92 (523.75)s, Will finish at: 02/24 05:05:12
+22-02-24 03:44:55.868 - INFO: [epoch: 19, iter:1,910,000, lr:(1.097e-06,)] l_pix: 2.4683e-02 
+22-02-24 03:44:56.034 - INFO: ======> 1w Iter Time: 421.22 (523.21)s, Will finish at: 02/24 05:03:24
+22-02-24 03:51:58.649 - INFO: [epoch: 19, iter:1,920,000, lr:(8.881e-07,)] l_pix: 1.9779e-02 
+22-02-24 03:51:58.798 - INFO: ======> 1w Iter Time: 422.76 (522.69)s, Will finish at: 02/24 05:01:40
+22-02-24 03:59:01.057 - INFO: [epoch: 19, iter:1,930,000, lr:(7.036e-07,)] l_pix: 2.2762e-02 
+22-02-24 03:59:01.162 - INFO: ======> 1w Iter Time: 422.36 (522.17)s, Will finish at: 02/24 04:59:56
+22-02-24 04:06:02.784 - INFO: [epoch: 19, iter:1,940,000, lr:(5.436e-07,)] l_pix: 2.3828e-02 
+22-02-24 04:06:02.882 - INFO: ======> 1w Iter Time: 421.72 (521.65)s, Will finish at: 02/24 04:58:12
+22-02-24 04:13:05.400 - INFO: [epoch: 19, iter:1,950,000, lr:(4.081e-07,)] l_pix: 2.5688e-02 
+22-02-24 04:13:05.498 - INFO: ======> 1w Iter Time: 422.62 (521.14)s, Will finish at: 02/24 04:56:31
+22-02-24 04:20:07.955 - INFO: [epoch: 19, iter:1,960,000, lr:(2.972e-07,)] l_pix: 2.0993e-02 
+22-02-24 04:20:08.058 - INFO: ======> 1w Iter Time: 422.56 (520.64)s, Will finish at: 02/24 04:54:50
+22-02-24 04:27:10.389 - INFO: [epoch: 19, iter:1,970,000, lr:(2.110e-07,)] l_pix: 3.0855e-02 
+22-02-24 04:27:10.486 - INFO: ======> 1w Iter Time: 422.43 (520.14)s, Will finish at: 02/24 04:53:10
+22-02-24 04:34:15.572 - INFO: [epoch: 19, iter:1,980,000, lr:(1.493e-07,)] l_pix: 2.5412e-02 
+22-02-24 04:34:15.677 - INFO: ======> 1w Iter Time: 425.19 (519.66)s, Will finish at: 02/24 04:51:34
+22-02-24 04:41:29.276 - INFO: [epoch: 19, iter:1,990,000, lr:(1.123e-07,)] l_pix: 2.2372e-02 
+22-02-24 04:41:29.389 - INFO: ======> 1w Iter Time: 433.71 (519.23)s, Will finish at: 02/24 04:50:08
+22-02-24 04:48:44.003 - INFO: [epoch: 20, iter:2,000,000, lr:(1.000e-07,)] l_pix: 1.3968e-02 
+22-02-24 04:48:44.097 - INFO: ======> 1w Iter Time: 434.71 (518.81)s, Will finish at: 02/24 04:48:44
+22-02-24 04:48:44.743 - INFO: Saving the final model.
+22-02-24 04:48:44.812 - INFO: End of training.
