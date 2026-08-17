@@ -98,13 +98,32 @@ mult_list = width_list / nf
 
 
 
+def calc_flops(net, shape):
+    from models.archs.arch_util import USConv2d, USConvTranspose2d
+    total = [0.0]
+    def hook(m, inp, out):
+        o = out[0] if isinstance(out, (tuple, list)) else out
+        i = inp[0]
+        k = m.kernel_size
+        kh, kw = (k, k) if isinstance(k, int) else k
+        total[0] += float(i.shape[1] * o.shape[1] * kh * kw * o.shape[2] * o.shape[3])
+    conv_types = (torch.nn.Conv2d, USConv2d, USConvTranspose2d)
+    handles = [m.register_forward_hook(hook) for m in net.modules() if isinstance(m, conv_types)]
+    device = next(net.parameters()).device
+    x = torch.randn(*shape).to(device)
+    with torch.no_grad():
+        net(x)
+    for h in handles:
+        h.remove()
+    return total[0]
+
 cost_list = [0.0]
 for width_id, mult in enumerate(mult_list):
     if mult == 0: continue
     model.netG.apply(lambda m: setattr(m, 'width_id', width_id))
     model.netG.apply(lambda m: setattr(m, 'width_mult', mult_list[width_id]))
 
-    cost_list.append(summary(model.netG, (1, 3, 32, 32)))
+    cost_list.append(calc_flops(model.netG, (1, 3, 32, 32)))
 
 
 logger.info(f'--- cost_list:{cost_list} ---')
